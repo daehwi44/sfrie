@@ -1,9 +1,22 @@
-<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 login bg-cover">
     <div>
         {{ $logo }}
     </div>
 
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+    <div class="text-gray w-full sm:max-w-md mt-6 px-6 py-4 bg-white bg-opacity-25 shadow-md overflow-hidden sm:rounded-lg">
         {{ $slot }}
     </div>
 </div>
+
+
+{{-- ログインページの背景画像設定 --}}
+<style>
+    .login {
+        /*
+    background: url(bg/friends.jpg);
+  */
+        background: url(bg/friends.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
