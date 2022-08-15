@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Comment;
 
 class PostController extends Controller
 {
@@ -126,5 +127,20 @@ class PostController extends Controller
         //投稿を削除
         $post->delete();
         return redirect()->route('post.index')->with('message', '投稿を削除しました');
+    }
+
+    //自分の投稿のみ表示
+    public function mypost()
+    {
+        $user = auth()->user()->id;
+        $posts = Post::where('user_id', $user)->orderBy('created_at', 'desc')->get();
+        return view('post.mypost', compact('posts'));
+    }
+
+    public function mycomment()
+    {
+        $user = auth()->user()->id;
+        $comments = Comment::where('user_id', $user)->orderBy('created_at', 'desc')->get();
+        return view('post.mycomment', compact('comments'));
     }
 }

@@ -1,5 +1,19 @@
 <x-guest-layout>
-    <div class="h-screen pb-14 bg-right bg-cover">
+<x-slot name="header">
+    <x-community-navi>
+      </x-button>
+      <div class="bg-white">
+        <h2 class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
+          新規作成
+        </h2>
+      </div>
+      {{--エラーメッセージ--}}
+      <x-validation-errors class="mb-4" :errors="$errors" />
+      {{--投稿完了メッセージ--}}
+      <x-message :message="session('message')" />
+  </x-slot>    
+
+<div class="h-screen pb-14 bg-right bg-cover">
         <div class="container pt-10 md:pt-18 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center bg-white">
             <!--左側-->
             <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden ">

@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-black border-b border-black-100">
+<nav x-data="{ open: false }" class="bg-black border-b border-black">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -12,32 +12,30 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('post.index')" :active="request()->routeIs('post.index')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('post.index')">
                         <div class="text-white">
                             HOME
                         </div>
                     </x-nav-link>
-                    <x-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
+                    <x-nav-link :href="route('post.index')" :active="request()->routeIs('post.create')">
                         <div class="text-white">
-                            新規作成
+                            学習仲間の募集掲示板
                         </div>
                     </x-nav-link>
-                    <x-nav-link :href="route('post.mypost')" :active="request()->routeIs('post.mypost')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('post.mypost')">
                         <div class="text-white">
-                            自分の投稿
+                            学習コミュニティ一覧
                         </div>
                     </x-nav-link>
-                    <x-nav-link :href="route('post.mycomment')" :active="request()->routeIs('post.mycomment')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('post.mycomment')">
                         <div class="text-white">
-                            コメントした投稿
+                            学習施設情報
                         </div>
-                        @can('admin')
-                        <x-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('profile.index')">
                             <div class="text-white">
-                                ユーザー一覧
+                                インタビュー記事
                             </div>
                         </x-nav-link>
-                        @endcan
                     </x-nav-link>
                 </div>
             </div>
@@ -89,23 +87,21 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('post.index')" :active="request()->routeIs('post.index')">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('post.index')">
                 HOME
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
-                新規作成
+            <x-responsive-nav-link :href="route('post.index')" :active="request()->routeIs('post.create')">
+                学習仲間の募集掲示板
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('post.mypost')" :active="request()->routeIs('post.mypost')">
-                自分の投稿
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('post.mypost')">
+                学習コミュニティ一覧
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('post.mycomment')" :active="request()->routeIs('post.mypost')">
-                コメントした投稿
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('post.mypost')">
+                学習施設情報
             </x-responsive-nav-link>
-            @can('admin')
-            <x-responsive-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
-                ユーザー一覧
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('profile.index')">
+                インタビュー記事
             </x-responsive-nav-link>
-            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

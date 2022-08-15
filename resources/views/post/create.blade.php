@@ -1,8 +1,11 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      投稿の新規作成
-    </h2>
+    <x-community-navi></x-community-navi>
+    <div class="bg-white">
+      <h2 class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
+        新規作成
+      </h2>
+    </div>
     {{--エラーメッセージ--}}
     <x-validation-errors class="mb-4" :errors="$errors" />
     {{--投稿完了メッセージ--}}
