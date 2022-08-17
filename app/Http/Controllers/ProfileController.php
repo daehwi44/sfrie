@@ -54,7 +54,7 @@ class ProfileController extends Controller
             }
             $name = request()->file('avatar')->getClientOriginalName();
             $avatar = date('Ymd_His') . '_' . $name;
-            request()->file('avatar')->storeAs('public/avatar', $avatar);
+            request()->file('avatar')->move('public/avatar', $avatar);
             $inputs['avatar'] = $avatar;
         }
 
