@@ -53,8 +53,9 @@ class ProfileController extends Controller
                 Storage::delete($oldavatar);
             }
             $name = request()->file('avatar')->getClientOriginalName();
+            // 日時追加
             $avatar = date('Ymd_His') . '_' . $name;
-            request()->file('avatar')->move('public/avatar', $avatar);
+            request()->file('avatar')->move('storage/avatar', $avatar);
             $inputs['avatar'] = $avatar;
         }
 
