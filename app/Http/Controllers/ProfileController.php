@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Role;
+use App\Models\M_area;
+use App\Models\M_category;
 
 
 class ProfileController extends Controller
@@ -21,8 +23,13 @@ class ProfileController extends Controller
     //プロフィール編集画面へ
     public function edit(User $user)
     {
-        return view('profile.edit', compact('user'));
+        // areaテーブルの全データを取得する
+        $areas = M_area::all();
+        // categoryテーブルの全データを取得する
+        $categories = M_category::all();
+        return view('profile.edit', compact('user', 'areas', 'categories'));
     }
+
 
     //プロフィールの書き換え処理
     public function update(User $user, Request $request)
@@ -30,9 +37,11 @@ class ProfileController extends Controller
         //更新の権限設定
         //$this->authorize('update', $user);
 
-        // バリデーション
+        // バリデーション&データ格納
         $inputs = request()->validate([
             'name' => 'required|max:255',
+            'm_area_id' => 'required',
+            'm_category_id' => 'required',
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'avatar' => 'image|max:1024',
             'password' => 'nullable|max:255|min:8',

@@ -8,7 +8,7 @@
     </x-slot>
 
     {{--メインビジュアル--}}
-    <img src="{{asset('images/main.png')}}">
+    <img src="{{asset('images/main.png')}}" class="w-full">
     {{--背景--}}
     <div class="h-screen pb-14 bg-right bg-cover">
         {{--メインコンテンツ--}}
