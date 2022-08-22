@@ -583,6 +583,8 @@ video {
   margin-left: 3rem;
 }.-mt-px {
   margin-top: -1px;
+}.ml-10 {
+  margin-left: 2.5rem;
 }.block {
   display: block;
 }.flex {
@@ -643,6 +645,8 @@ video {
   width: 1.5rem;
 }.w-8 {
   width: 2rem;
+}.w-screen {
+  width: 100vw;
 }.max-w-7xl {
   max-width: 80rem;
 }.max-w-6xl {

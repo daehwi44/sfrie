@@ -7,7 +7,7 @@
       </h2>
     </div>
     {{--エラーメッセージ--}}
-    <x-validation-errors class="mb-4" :errors="$errors" />
+    <x-validation-errors class="mb-4 ml-10" :errors="$errors" />
     {{--投稿完了メッセージ--}}
     <x-message :message="session('message')" />
   </x-slot>

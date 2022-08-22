@@ -7,6 +7,13 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    private const SEEDERS = [
+        M_areaSeeder::class,
+        M_categorySeeder::class,
+    ];
+
+
+
     /**
      * Seed the application's database.
      *
@@ -14,6 +21,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

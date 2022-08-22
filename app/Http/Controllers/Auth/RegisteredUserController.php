@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\M_area;
+use App\Models\M_category;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -20,7 +22,11 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        // areaテーブルの全データを取得する
+        $areas = M_area::all();
+        // categoryテーブルの全データを取得する
+        $categories = M_category::all();
+        return view('auth.register', compact('areas', 'categories'));
     }
 
     /**
@@ -40,10 +46,11 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-
         // userテーブルのデータ
         $attr = [
             'name' => $request->name,
+            'm_area_id' => $request->m_area_id,
+            'm_category_id' => $request->m_category_id,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ];

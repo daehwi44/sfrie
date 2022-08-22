@@ -19,6 +19,28 @@
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
+            <!-- area -->
+            <div class="mt-4">
+                <x-label for="m_area_id" :value="__('都道府県')" />
+                <select name="m_area_id" required>
+                    <option disabled style='display:none;' @if (empty($user->m_area_id)) selected @endif>選択してください</option>
+                    @foreach($areas as $area)
+                    <option value="{{ $area->id }}">{{ $area->area }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- category -->
+            <div class="mt-4">
+                <x-label for="m_category_id" :value="__('カテゴリー')" />
+                <select name="m_category_id" required>
+                    <option disabled style='display:none;' @if (empty($user->m_category_id)) selected @endif>選択してください</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->category }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />

@@ -23,12 +23,30 @@ class User extends Authenticatable
     }
 
     /**
+     * Userの都道府県の取得(M_areaモデルとのリレーション)
+     */
+    public function area()
+    {
+        return $this->belongsTo(M_area::class);
+    }
+
+    /**
+     * Userのカテゴリーの取得(M_categoryモデルとのリレーション)
+     */
+    public function category()
+    {
+        return $this->belongsTo(M_category::class);
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
         'name',
+        'm_area_id',
+        'm_category_id',
         'avatar',
         'email',
         'password',

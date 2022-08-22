@@ -53,8 +53,6 @@ Route::get('/', function () {
     return view('welcome');
 })->name('top');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [PostController::class, 'top'])->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

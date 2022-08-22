@@ -15,69 +15,95 @@
         <div class="mx-4 sm:p-2">
             <div class="mt-4">
                 <div class="bg-white w-full rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+                    {{--募集情報コンテナ--}}
                     <div class="mt-4">
                         <div class="flex pb-1 font-extrabold">
                             ★募集情報
                         </div>
-                        <hr class="w-full bg-gray-600 h-0.5">
-                        <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
-                            タイトル
+                        @foreach ($posts as $post)
+                        <div class="mt-4 mx-4 sm:p-2">
+                            {{-- アバターと名前 --}}
+                            <div class="flex pb-1">
+                                {{-- アバター --}}
+                                <div>
+                                    <img class="rounded-full w-12 h-12" src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}">
+                                </div>
+                                {{-- name --}}
+                                <div class="ml-2 ">
+                                    <h1 class="text-lg text-gray-700 font-semibold float-left pt-3">
+                                        {{ $post->user->name??'削除されたユーザ' }}
+                                    </h1>
+                                </div>
+                            </div>
+                            <hr class="w-full">
+                            {{-- title --}}
+                            <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
+                                <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>
+                            </div>
+                            <hr class="w-full">
+                            {{--本文(長い場合"..."表示)--}}
+                            <p class="mt-4 text-gray-600 py-4">{{Str::limit($post->body, 500, '...')}} </p>
+                            <div class="text-sm font-semibold flex flex-row-reverse">
+                                <p>{{$post->created_at->diffForHumans()}}</p>
+                            </div>
+                            {{--投稿間の区切り線（太めの線）--}}
+                            <hr class="w-full bg-gray-600 h-0.5">
                         </div>
-                        <hr class="w-full">
+                        @endforeach
+                    </div>
+                    <div class="flex justify-center">
+                        <div>
+                            <a href="{{ route('post.index') }}">
+                                もっとみる
+                            </a>
+                        </div>
+                    </div>
 
-                        <div class="text-sm font-semibold flex flex-row-reverse">
-                            ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+                    {{--学習コミュニティ一覧コンテナ--}}
+                    <div class="mt-4">
+                        <div class="flex pb-1 font-extrabold">
+                            ★学習コミュニティ一覧
                         </div>
-                        <hr class="w-full mb-2">
-                        <div class="pb-3">
-                            2022/08/15
+                        @foreach ($posts as $post)
+                        <div class="mt-4 mx-4 sm:p-2">
+                            {{-- アバターと名前 --}}
+                            <div class="flex pb-1">
+                                {{-- アバター --}}
+                                <div>
+                                    <img class="rounded-full w-12 h-12" src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}">
+                                </div>
+                                {{-- name --}}
+                                <div class="ml-2 ">
+                                    <h1 class="text-lg text-gray-700 font-semibold float-left pt-3">
+                                        {{ $post->user->name??'削除されたユーザ' }}
+                                    </h1>
+                                </div>
+                            </div>
+                            <hr class="w-full">
+                            {{-- title --}}
+                            <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
+                                <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>
+                            </div>
+                            <hr class="w-full">
+                            {{--本文(長い場合"..."表示)--}}
+                            <p class="mt-4 text-gray-600 py-4">{{Str::limit($post->body, 500, '...')}} </p>
+                            <div class="text-sm font-semibold flex flex-row-reverse">
+                                <p>{{$post->created_at->diffForHumans()}}</p>
+                            </div>
+                            {{--投稿間の区切り線（太めの線）--}}
+                            <hr class="w-full bg-gray-600 h-0.5">
                         </div>
-                        <hr class="w-full bg-gray-600 h-0.5">
-                        <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
-                            タイトル
+                        @endforeach
+                    </div>
+                    <div class="flex justify-center">
+                        <div>
+                            <a href="{{ route('post.index') }}">
+                                もっとみる
+                            </a>
                         </div>
-                        <hr class="w-full">
-
-                        <div class="text-sm font-semibold flex flex-row-reverse">
-                            ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-                        </div>
-                        <hr class="w-full mb-2">
-                        <div class="pb-3">
-                            2022/08/15
-                        </div>
-                        <hr class="w-full bg-gray-600 h-0.5">
-                        <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
-                            タイトル
-                        </div>
-                        <hr class="w-full">
-
-                        <div class="text-sm font-semibold flex flex-row-reverse">
-                            ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-                        </div>
-                        <hr class="w-full mb-2">
-                        <div class="pb-3">
-                            2022/08/15
-                        </div>
-                        <hr class="w-full bg-gray-600 h-0.5">
-                        <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
-                            タイトル
-                        </div>
-                        <hr class="w-full">
-
-                        <div class="text-sm font-semibold flex flex-row-reverse">
-                            ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-                        </div>
-                        <hr class="w-full mb-2">
-                        <div class="pb-3">
-                            2022/08/15
-                        </div>
-                        <hr class="w-full bg-gray-600 h-0.5">
-
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
 </x-app-layout>

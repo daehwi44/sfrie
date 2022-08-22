@@ -38,7 +38,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //バリデーション
+
+        // 以下、Requestに記述したが失敗、一旦保留
+        // バリデーション
         $inputs = $request->validate([
             'title' => 'required|max:255',
             'body' => 'required|max:1000',
@@ -142,5 +144,12 @@ class PostController extends Controller
         $user = auth()->user()->id;
         $comments = Comment::where('user_id', $user)->orderBy('created_at', 'desc')->get();
         return view('post.mycomment', compact('comments'));
+    }
+
+    public function top()
+    {
+        $posts = Post::orderBy('created_at', 'desc')->simplePaginate(5);
+        $user = auth()->user();
+        return view('dashboard', compact('posts', 'user'));
     }
 }
