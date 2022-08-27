@@ -22,6 +22,12 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function boshujohos()
+    {
+        return $this->hasMany(Boshujoho::class);
+    }
+
+
     /**
      * Userの都道府県の取得(M_areaモデルとのリレーション)
      */

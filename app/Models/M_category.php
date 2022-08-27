@@ -20,4 +20,13 @@ class M_category extends Model
         return $this->hasMany(user::class, 'm_category_id', 'id');
     }
 
+    /**
+     * Boshujohoモデルとのリレーション
+     */
+    public function boshujohos()
+    {
+        return $this->hasMany(Boshujoho::class);
+    }
+
+
 }

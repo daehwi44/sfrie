@@ -19,4 +19,12 @@ class M_area extends Model
     {
         return $this->hasMany(user::class, 'm_area_id', 'id');
     }
+
+    /**
+     * Boshujohoモデルとのリレーション
+     */
+    public function boshujohos()
+    {
+        return $this->hasMany(Boshujoho::class);
+    }
 }

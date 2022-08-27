@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\BoshujohoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ use App\Http\Controllers\RoleController;
 |
 */
 
+//boshujohoのリソースコントローラーのルート
+Route::resource('boshujoho', BoshujohoController::class);
+
 //マイページのルート（リソースコントローラーのルートより上に書かないとエラーになる）
 Route::get('post/mypost', [PostController::class, 'mypost'])->name('post.mypost');
 
@@ -27,7 +31,7 @@ Route::get('post/mycomment', [PostController::class, 'mycomment'])->name('post.m
 //コメント保存用ルート
 Route::post('post/comment/store', [CommentController::class, 'store'])->name('comment.store');
 
-//リソースコントローラーのルート
+//postのリソースコントローラーのルート
 Route::resource('post', PostController::class);
 
 // お問い合わせ
