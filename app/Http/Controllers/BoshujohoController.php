@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Boshujoho;
+use App\Models\M_area;
+use App\Models\M_category;
 use Illuminate\Http\Request;
 
 class BoshujohoController extends Controller
@@ -14,7 +16,9 @@ class BoshujohoController extends Controller
      */
     public function index()
     {
-        //
+        $boshujohos = Boshujoho::all();
+        $user = auth()->user();
+        return view('boshujoho.index', compact('boshujohos', 'user'));
     }
 
     /**
@@ -24,7 +28,11 @@ class BoshujohoController extends Controller
      */
     public function create()
     {
-        return view('boshujoho.create');
+        // areaテーブルの全データを取得する
+        $areas = M_area::all();
+        // categoryテーブルの全データを取得する
+        $categories = M_category::all();
+        return view('boshujoho.create', compact('areas', 'categories'));
     }
 
     /**
@@ -39,6 +47,9 @@ class BoshujohoController extends Controller
         // バリデーション
         $inputs = $request->validate([
             'title' => 'required|max:255',
+            'm_area_id' => 'required',
+            'm_category_id' => 'required',
+            'content' => 'required|max:255',
             'body' => 'required|max:1000',
             'image' => 'image|max:1024'
         ]);
@@ -47,6 +58,9 @@ class BoshujohoController extends Controller
         $boshujoho = new Boshujoho();
 
         $boshujoho->title = $request->title;
+        $boshujoho->m_area_id = $request->m_area_id;
+        $boshujoho->m_category_id = $request->m_category_id;
+        $boshujoho->content = $request->content;
         $boshujoho->body = $request->body;
         $boshujoho->user_id = auth()->user()->id;
         if (request('image')) {
