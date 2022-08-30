@@ -54,14 +54,14 @@ class PostController extends Controller
         $post->body = $request->body;
         $post->user_id = auth()->user()->id;
         if (request('image')) {
-            $original = request()->file('image')->getClientOriginalName();
+            $original = $request->file('image')->getClientOriginalName();
             // 日時追加
             $name = date('Ymd_His') . '_' . $original;
             request()->file('image')->move('storage/images', $name);
             $post->image = $name;
         }
         $post->save();
-        return redirect()->route('post.create')->with('message', '投稿を作成しました');
+        return redirect()->route('post.show', $post)->with('message', '投稿を更新しました');
     }
 
     /**
@@ -105,7 +105,7 @@ class PostController extends Controller
         $post->body = $request->body;
 
         if (request('image')) {
-            $original = request()->file('image')->getClientOriginalName();
+            $original = $request->file('image')->getClientOriginalName();
             $name = date('Ymd_His') . '_' . $original;
             $file = request()->file('image')->move('storage/images', $name);
             $post->image = $name;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BoshuCommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
@@ -18,6 +19,9 @@ use App\Http\Controllers\BoshujohoController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+//募集情報コメント保存用ルート
+Route::post('boshujoho/boshucomment/store', [BoshuCommentController::class, 'store'])->name('boshucomment.store');
 
 //boshujohoのリソースコントローラーのルート
 Route::resource('boshujoho', BoshujohoController::class);

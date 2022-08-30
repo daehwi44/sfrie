@@ -34,19 +34,9 @@
               <a href="{{route('boshujoho.show', $boshujoho)}}">{{ $boshujoho->title }}</a>
             </div>
             <hr class="w-full">
-            {{-- エリア --}}
+            {{-- エリア・カテゴリー・学習内容 --}}
             <div class="text-gray-700 pt-3 pb-3">
-              <p>エリア　：　{{ $boshujoho->m_area_id }}</p>
-            </div>
-            <hr class="w-full">
-            {{-- カテゴリー --}}
-            <div class="text-gray-700 pt-3 pb-3">
-              <p>カテゴリー　：　{{ $boshujoho->m_category_id}}</p>
-            </div>
-            <hr class="w-full">
-            {{-- 学習内容 --}}
-            <div class="text-gray-700 pt-3 pb-3">
-              <p>学習内容　：　{{ $boshujoho->content }}</p>
+              <p>エリア：{{ $boshujoho->area->area }} / カテゴリー：{{ $boshujoho->category->category }} / 学習内容：{{ $boshujoho->content }}</p>
             </div>
             <hr class="w-full">
             {{--本文(長い場合"..."表示)--}}
