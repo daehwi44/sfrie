@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Boshujoho;
+use App\Models\Community;
 use App\Models\M_area;
 use App\Models\M_category;
 use Illuminate\Http\Request;
 
-class BoshujohoController extends Controller
+class CommunityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class BoshujohoController extends Controller
      */
     public function index()
     {
-        $boshujohos = Boshujoho::with('area', 'category')->orderBy('created_at', 'desc')->get();
+        $communities = Community::with('area', 'category')->orderBy('created_at', 'desc')->get();
         $user = auth()->user();
-        return view('boshujoho.index', compact('boshujohos', 'user'));
+        return view('community.index', compact('communities', 'user'));
     }
 
     /**
@@ -32,7 +32,7 @@ class BoshujohoController extends Controller
         $areas = M_area::all();
         // categoryテーブルの全データを取得する
         $categories = M_category::all();
-        return view('boshujoho.create', compact('areas', 'categories'));
+        return view('community.create', compact('areas', 'categories'));
     }
 
     /**
@@ -43,117 +43,108 @@ class BoshujohoController extends Controller
      */
     public function store(Request $request)
     {
-        // 以下、Requestに記述したが失敗、一旦保留
         // バリデーション
         $inputs = $request->validate([
-            'title' => 'required|max:255',
+            'name' => 'required|max:255',
+            'image' => 'image|max:1024',
             'm_area_id' => 'required',
             'm_category_id' => 'required',
             'content' => 'required|max:255',
-            'body' => 'required|max:1000',
-            'image' => 'image|max:1024'
+            'about' => 'required|max:1000',
         ]);
 
         //インスタンス化
-        $boshujoho = new Boshujoho();
+        $community = new Community();
 
-        $boshujoho->title = $request->title;
-        $boshujoho->m_area_id = $request->m_area_id;
-        $boshujoho->m_category_id = $request->m_category_id;
-        $boshujoho->content = $request->content;
-        $boshujoho->body = $request->body;
-        $boshujoho->user_id = auth()->user()->id;
+        $community->name = $request->name;
+        $community->m_area_id = $request->m_area_id;
+        $community->m_category_id = $request->m_category_id;
+        $community->content = $request->content;
+        $community->about = $request->about;
+        $community->user_id = auth()->user()->id;
         if (request('image')) {
             $original = request()->file('image')->getClientOriginalName();
             // 日時追加
             $name = date('Ymd_His') . '_' . $original;
             request()->file('image')->move('storage/images', $name);
-            $boshujoho->image = $name;
+            $community->image = $name;
         }
-        $boshujoho->save();
-        return redirect()->route('boshujoho.create')->with('message', '投稿を作成しました');
+        $community->save();
+        return redirect()->route('community.create')->with('message', '投稿を作成しました');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Boshujoho  $boshujoho
+     * @param  \App\Models\Community  $community
      * @return \Illuminate\Http\Response
      */
-    public function show(Boshujoho $boshujoho)
+    public function show(Community $community)
     {
-        return view('boshujoho.show', compact('boshujoho'));
+        return view('community.show', compact('community'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Boshujoho  $boshujoho
+     * @param  \App\Models\Community  $community
      * @return \Illuminate\Http\Response
      */
-    public function edit(Boshujoho $boshujoho)
+    public function edit(Community $community)
     {
         // areaテーブルの全データを取得する
         $areas = M_area::all();
         // categoryテーブルの全データを取得する
         $categories = M_category::all();
-        return view('boshujoho.edit', compact('boshujoho', 'areas', 'categories'));
+        return view('community.edit', compact('community', 'areas', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Boshujoho  $boshujoho
+     * @param  \App\Models\Community  $community
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Boshujoho $boshujoho)
+    public function update(Request $request, Community $community)
     {
-
         // バリデーション
         $inputs = $request->validate([
-            'title' => 'required|max:255',
             'm_area_id' => 'required',
             'm_category_id' => 'required',
+            'name' => 'required|max:255',
+            'image' => 'image|max:1024',
             'content' => 'required|max:255',
-            'body' => 'required|max:1000',
-            'image' => 'image|max:1024'
+            'about' => 'required|max:1000',
+
         ]);
 
-        $boshujoho->title = $request->title;
-        $boshujoho->m_area_id = $request->m_area_id;
-        $boshujoho->m_category_id = $request->m_category_id;
-        $boshujoho->content = $request->content;
-        $boshujoho->body = $request->body;
-        $boshujoho->user_id = auth()->user()->id;
+        $community->m_area_id = $request->m_area_id;
+        $community->m_category_id = $request->m_category_id;
+        $community->name = $request->name;
+        $community->content = $request->content;
+        $community->about = $request->about;
+        $community->user_id = auth()->user()->id;
         if (request('image')) {
             $original = $request->file('image')->getClientOriginalName();
             // 日時追加
             $name = date('Ymd_His') . '_' . $original;
             request()->file('image')->move('storage/images', $name);
-            $boshujoho->image = $name;
+            $community->image = $name;
         }
-        $boshujoho->save();
-        return redirect()->route('boshujoho.show', $boshujoho)->with('message', '投稿を更新しました');
+        $community->save();
+        return redirect()->route('community.show', $community)->with('message', '投稿を更新しました');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Boshujoho  $boshujoho
+     * @param  \App\Models\Community  $community
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Boshujoho $boshujoho)
+    public function destroy(Community $community)
     {
-        $boshujoho->delete();
-        return redirect()->route('boshujoho.index')->with('message', '投稿を削除しました');
+        $community->delete();
+        return redirect()->route('community.index')->with('message', '投稿を削除しました');
     }
-
-    public function dashboard()
-    {
-        $boshujohos = boshujoho::orderBy('created_at', 'desc')->simplePaginate(5);
-        $user = auth()->user();
-        return view('dashboard', compact('boshujohos', 'user'));
-    }
-
 }

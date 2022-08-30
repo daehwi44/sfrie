@@ -146,10 +146,5 @@ class PostController extends Controller
         return view('post.mycomment', compact('comments'));
     }
 
-    public function top()
-    {
-        $posts = Post::orderBy('created_at', 'desc')->simplePaginate(5);
-        $user = auth()->user();
-        return view('dashboard', compact('posts', 'user'));
-    }
+    
 }

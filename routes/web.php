@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BoshujohoController;
+use App\Http\Controllers\CommunityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,9 @@ use App\Http\Controllers\BoshujohoController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+//学習コミュニティのルート
+Route::resource('community', CommunityController::class);
 
 //募集情報コメント保存用ルート
 Route::post('boshujoho/boshucomment/store', [BoshuCommentController::class, 'store'])->name('boshucomment.store');
@@ -61,6 +65,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('top');
 
-Route::get('/dashboard', [PostController::class, 'top'])->middleware(['auth'])->name('dashboard');
+//dashboardルーティング
+Route::get('/dashboard', [BoshujohoController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

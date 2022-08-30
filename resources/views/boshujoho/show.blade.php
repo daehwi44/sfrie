@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot name="header">
-    <x-community-navi></x-community-navi>
+    <x-boshujoho-navi></x-boshujoho-navi>
     <div class="bg-white">
       <h2 class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
         投稿詳細
@@ -18,7 +18,7 @@
             <div class="flex">
               <div class="rounded-full w-12 h-12">
                 {{-- アバター表示 --}}
-                <img src="{{asset('storage/avatar/'.($comment->user->avatar??'user_default.jpg'))}}">
+                <img src="{{asset('storage/avatar/'.($boshujoho->user->avatar??'user_default.jpg'))}}">
               </div>
               {{-- name --}}
               <div class="ml-2 ">

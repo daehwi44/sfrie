@@ -27,4 +27,12 @@ class M_area extends Model
     {
         return $this->hasMany(Boshujoho::class);
     }
+
+    /**
+     * Communityモデルとのリレーション
+     */
+    public function communities()
+    {
+        return $this->hasMany(Community::class);
+    }
 }

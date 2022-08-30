@@ -5,33 +5,33 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('post.index') }}">
+                    <a href="{{ route('dashboard') }}">
                         <img src="{{asset('logo/logo.png')}}" style="max-height:60px;">
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('post.index')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         <div class="text-white">
                             HOME
                         </div>
                     </x-nav-link>
-                    <x-nav-link :href="route('post.index')" :active="request()->routeIs('post.create')">
+                    <x-nav-link :href="route('boshujoho.index')" :active="request()->routeIs('boshujoho.index')">
                         <div class="text-white">
                             学習仲間の募集掲示板
                         </div>
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('post.mypost')">
+                    <x-nav-link :href="route('community.index')" :active="request()->routeIs('community.index')">
                         <div class="text-white">
                             学習コミュニティ一覧
                         </div>
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('post.mycomment')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         <div class="text-white">
                             学習施設情報
                         </div>
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('profile.index')">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             <div class="text-white">
                                 インタビュー記事
                             </div>

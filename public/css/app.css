@@ -585,6 +585,10 @@ video {
   margin-left: 3rem;
 }.-mt-px {
   margin-top: -1px;
+}.ml-20 {
+  margin-left: 5rem;
+}.mt-10 {
+  margin-top: 2.5rem;
 }.block {
   display: block;
 }.flex {

@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot name="header">
-    <x-boshujoho-navi></x-boshujoho-navi>
+    <x-comindex-navi></x-comindex-navi>
     <div class="bg-white">
       <h2 class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
         新規作成
@@ -14,13 +14,21 @@
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="mx-4 sm:p-8">
-      <form method="post" action="{{route('boshujoho.store')}}" enctype="multipart/form-data">
+      <form method="post" action="{{route('community.store')}}" enctype="multipart/form-data">
         @csrf
-        <!-- タイトル -->
+        <!-- コミュニティ名 -->
         <div class="md:flex items-center mt-8">
           <div class="w-full flex flex-col">
-            <label for="body" class="font-semibold leading-none mt-4">件名</label>
-            <input type="text" name="title" class="w-auto py-2 placeholder-gray-300 border border-gray-300 rounded-md" id="title" value="{{old('title')}}" placeholder="Enter Title">
+            <label for="body" class="font-semibold leading-none mt-4">コミュニティ名</label>
+            <input type="text" name="name" class="w-auto py-2 placeholder-gray-300 border border-gray-300 rounded-md" id="name" value="{{old('name')}}" placeholder="Enter Title">
+          </div>
+        </div>
+
+        <!-- イメージ画像 -->
+        <div class="w-full flex flex-col">
+          <label for="image" class="font-semibold leading-none mt-4">イメージ画像 （1MBまで）</label>
+          <div>
+            <input id="image" type="file" name="image">
           </div>
         </div>
 
@@ -52,18 +60,10 @@
           </div>
         </div>
 
-        <!-- 本文 -->
+        <!-- コミュニティ詳細 -->
         <div class="w-full flex flex-col">
           <label for="body" class="font-semibold leading-none mt-4">本文</label>
-          <textarea name="body" class="w-auto py-2 placeholder-gray-300 border border-gray-300 rounded-md" id="body" cols="30" rows="10">{{old('body')}}</textarea>
-        </div>
-
-        <!-- 画像 -->
-        <div class="w-full flex flex-col">
-          <label for="image" class="font-semibold leading-none mt-4">画像 （1MBまで）</label>
-          <div>
-            <input id="image" type="file" name="image">
-          </div>
+          <textarea name="about" class="w-auto py-2 placeholder-gray-300 border border-gray-300 rounded-md" id="about" cols="30" rows="10">{{old('about')}}</textarea>
         </div>
 
         <x-button class="mt-4">
