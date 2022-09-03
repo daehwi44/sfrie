@@ -24,4 +24,9 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function community()
+    {
+        return $this->belongsTo(Community::class);
+    }
 }

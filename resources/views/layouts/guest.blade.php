@@ -41,10 +41,10 @@
                             @auth
                             <a href="{{ url('/post') }}" class="text-sm text-white-700 dark:text-white-500 underline">HOME</a>
                             @else
-                            <a href="{{ route('login') }}" class="text-sm text-white-700 dark:text-white-500 underline font-bold text-base">login</a>
+                            <a href="{{ route('login') }}" class="text-sm text-white-700 dark:text-white-500 underline font-bold">login</a>
 
                             @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-white-700 dark:text-white-500 underline font-bold text-base">sign up</a>
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-white-700 dark:text-white-500 underline font-bold">sign up</a>
                             @endif
 
                             @endauth

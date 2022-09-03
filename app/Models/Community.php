@@ -35,4 +35,10 @@ class Community extends Model
     {
         return $this->belongsTo(M_category::class, "m_category_id");
     }
+
+    //Postとのリレーション
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

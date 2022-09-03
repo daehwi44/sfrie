@@ -81,7 +81,7 @@ class CommunityController extends Controller
      */
     public function show(Community $community)
     {
-        return view('community.show', compact('community'));
+    //      return view('community.show', compact('community'));
     }
 
     /**
@@ -146,5 +146,12 @@ class CommunityController extends Controller
     {
         $community->delete();
         return redirect()->route('community.index')->with('message', '投稿を削除しました');
+    }
+
+    public function dashboard()
+    {
+        $Communities = Community::orderBy('created_at', 'desc')->simplePaginate(5);
+        $user = auth()->user();
+        return view('dashboard', compact('communities', 'user'));
     }
 }

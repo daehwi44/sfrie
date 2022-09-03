@@ -21,8 +21,9 @@ use App\Http\Controllers\CommunityController;
 |
 */
 
+
 //学習コミュニティのルート
-Route::resource('community', CommunityController::class);
+Route::resource('community', CommunityController::class)->except(['show']);;
 
 //募集情報コメント保存用ルート
 Route::post('boshujoho/boshucomment/store', [BoshuCommentController::class, 'store'])->name('boshucomment.store');
@@ -39,8 +40,14 @@ Route::get('post/mycomment', [PostController::class, 'mycomment'])->name('post.m
 //コメント保存用ルート
 Route::post('post/comment/store', [CommentController::class, 'store'])->name('comment.store');
 
-//postのリソースコントローラーのルート
-Route::resource('post', PostController::class);
+//postのルート
+Route::get('community/{community_id?}/post', [PostController::class, 'index'])->name('post.index');
+Route::get('community/{community_id?}/post/create', [PostController::class, 'create'])->name('post.create');
+// Route::post('post', [PostController::class, 'store'])->name('post.store');
+Route::get('post/{post}', [PostController::class, 'show'])->name('post.show');
+Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
+Route::patch('post/{post}', [PostController::class, 'update'])->name('post.update');
+Route::delete('post/{post}', [PostController::class, 'destroy'])->name('post.destroy');
 
 // お問い合わせ
 Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');

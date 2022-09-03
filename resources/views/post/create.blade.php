@@ -35,6 +35,8 @@
           </div>
         </div>
 
+        <input type="hidden" name='community_id' value="{{$community->id}}">
+
         <x-button class="mt-4">
           送信する
         </x-button>

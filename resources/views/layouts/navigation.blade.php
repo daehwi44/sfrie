@@ -33,7 +33,7 @@
                         </div>
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             <div class="text-white">
-                                インタビュー記事
+                                学習コラム
                             </div>
                         </x-nav-link>
                     </x-nav-link>
@@ -99,8 +99,8 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('post.mypost')">
                 学習施設情報
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('profile.index')">
-                インタビュー記事
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('post.index')">
+                学習コラム
             </x-responsive-nav-link>
         </div>
 

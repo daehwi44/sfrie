@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\Community;
 
 class PostController extends Controller
 {
@@ -13,11 +14,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($community_id)
     {
         $posts = Post::orderBy('created_at', 'desc')->get();
         $user = auth()->user();
-        return view('post.index', compact('posts', 'user'));
+        $community = Community::find($community_id);
+        return view('post.index', compact('posts','user', 'community'));
     }
 
     /**
@@ -25,9 +27,10 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($community_id)
     {
-        return view('post.create');
+        $community = Community::find($community_id);
+        return view('post.create',compact('community'));
     }
 
     /**
@@ -38,7 +41,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
+        $community = Community::find($request->community_id);
         // 以下、Requestに記述したが失敗、一旦保留
         // バリデーション
         $inputs = $request->validate([
@@ -53,6 +56,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->body = $request->body;
         $post->user_id = auth()->user()->id;
+        $post->community_id = $request->community_id;
         if (request('image')) {
             $original = $request->file('image')->getClientOriginalName();
             // 日時追加
@@ -61,7 +65,7 @@ class PostController extends Controller
             $post->image = $name;
         }
         $post->save();
-        return redirect()->route('post.show', $post)->with('message', '投稿を更新しました');
+        return redirect()->route('post.create', $post)->with('message', '投稿を作成しました');
     }
 
     /**
@@ -139,12 +143,11 @@ class PostController extends Controller
         return view('post.mypost', compact('posts'));
     }
 
+    //コメントした投稿のみ表示
     public function mycomment()
     {
         $user = auth()->user()->id;
         $comments = Comment::where('user_id', $user)->orderBy('created_at', 'desc')->get();
         return view('post.mycomment', compact('comments'));
     }
-
-    
 }

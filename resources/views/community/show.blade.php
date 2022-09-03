@@ -1,14 +1,14 @@
 <x-app-layout>
   <x-slot name="header">
-    <x-community-navi></x-community-navi>
+    <x-comindex-navi></x-comindex-navi>
     <div class="bg-white">
       <h2 class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
         学習コミュニティ詳細
       </h2>
     </div>
+
     <x-message :message="session('message')" />
   </x-slot>
-
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="mx-4 sm:p-2">
       <div class="px-10 mt-4">

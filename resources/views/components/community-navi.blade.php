@@ -21,11 +21,11 @@
       <div class="text-white">
         コメントした投稿をみる
       </div>
-      <x-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
-        <div class="text-white">
-          このコニュニティのユーザー一覧
-        </div>
-      </x-nav-link>
+    </x-nav-link>
+    <x-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
+      <div class="text-white">
+        このコニュニティのユーザー一覧
+      </div>
     </x-nav-link>
   </div>
 </div>

@@ -18,7 +18,7 @@
           <div class="mt-4">
             {{-- コミュニティ名 --}}
             <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
-              <a href="{{route('community.show', $community)}}">コミュニティ名：   {{ $community->name }}</a>
+              <a href="{{route('post.index',['community_id' => $community->id])}}">コミュニティ名： {{ $community->name }}</a>
             </div>
             <hr class="w-full">
             <div class="flex pb-1">
@@ -33,11 +33,6 @@
                   {{ $community->user->name??'削除されたユーザ' }}
                 </h1>
               </div>
-            </div>
-            <hr class="w-full">
-            {{-- title --}}
-            <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
-              <a href="{{route('community.show', $community)}}">{{ $community->title }}</a>
             </div>
             <hr class="w-full">
             {{-- エリア・カテゴリー・学習内容 --}}
