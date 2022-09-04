@@ -1,51 +1,130 @@
 <x-guest-layout>
     <x-slot name="header">
-        <x-community-navi>
-            </x-button>
-            <div class="bg-white">
-                <h2 class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
-                    新規作成
-                </h2>
-            </div>
-            {{--エラーメッセージ--}}
-            <x-validation-errors class="mb-4" :errors="$errors" />
-            {{--投稿完了メッセージ--}}
-            <x-message :message="session('message')" />
+        <div class="bg-white h-14">
+            <h2 class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
+                <span class="text-4xl">Sfrie</span>-学習仲間を見つける掲示板-
+            </h2>
+        </div>
     </x-slot>
 
     {{--メインビジュアル--}}
     <img src="{{asset('images/main.png')}}" class="w-full">
     {{--背景--}}
-    <div class="h-screen pb-14 bg-right bg-cover">
+    <div class="bg-zinc-700 pb-14 bg-right bg-cover">
+
+        <div class="pt-10 pl-20 pr-20">
+            <div class="flex flex-col text-center bg-white p-10">
+                <div class="pt-5">
+                    <p>まずは気軽にご登録</p>
+                </div>
+                <div class="pt-5">
+                    <a href="{{route('register')}}">
+                        <x-button class="bg-gray">ご登録はこちら</x-button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
         {{--メインコンテンツ--}}
         <div class="mx-4 sm:p-2">
             <div class="mt-4">
                 <div class="bg-white w-full rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
-                    <div class="h-screen pb-14 bg-right bg-cover">
-                        <div class="container pt-10 md:pt-18 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center bg-white">
-                            <!--左側-->
-                            <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden ">
-                                <h1 class="my-4 text-3xl md:text-5xl text-gray font-bold leading-tight text-center md:text-left slide-in-bottom-h1">Sufie</h1>
-                                <p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left slide-in-bottom-subtitle">
-                                    学習仲間を見つける掲示板
-                                </p>
-
-                                <p class="pb-8 lg:pb-6 text-center md:text-left fade-in">
-                                    fish or chiken?fish or chiken?fish or chiken?fish or chiken?fish or chiken?fish or chiken?fish or chiken?fish or chiken?fish or chiken?fish or chiken?fish or chiken?fish or chiken?fish or chiken?
-                                    fish or chiken?fish or chiken?fish or chiken?fish or chiken?fish or chiken?
-                                </p>
-                                <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in ">
-                                    {{-- ボタン--}}
-                                    <a href="{{route('register')}}">
-                                        <x-button class="btnsetg">ご登録はこちら</x-button>
-                                    </a>
+                    {{--募集情報コンテナ--}}
+                    <div class="mt-4">
+                        <div class="flex pb-1 font-extrabold">
+                            ★募集情報
+                        </div>
+                        @foreach ($boshujohos as $boshujoho)
+                        <div class="mt-4 mx-4 sm:p-2">
+                            {{-- アバターと名前 --}}
+                            <div class="flex pb-1">
+                                {{-- アバター --}}
+                                <div>
+                                    <img class="rounded-full w-12 h-12" src="{{asset('storage/avatar/'.($boshujoho->user->avatar??'user_default.jpg'))}}">
+                                </div>
+                                {{-- name --}}
+                                <div class="ml-2 ">
+                                    <h1 class="text-lg text-gray-700 font-semibold float-left pt-3">
+                                        {{ $boshujoho->user->name??'削除されたユーザ' }}
+                                    </h1>
                                 </div>
                             </div>
-                            {{-- 右側 --}}
-                            <div class="w-full xl:w-3/5 py-6 overflow-y-hidden">
-                                <img class="w-5/6 mx-auto lg:mr-0 slide-in-bottom rounded-lg shadow-xl" src="{{asset('logo/logo.png')}}">
+                            <hr class="w-full">
+                            {{-- title --}}
+                            <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
+                                <a href="{{ route('register') }}">{{ $boshujoho->title }}</a>
                             </div>
+                            <hr class="w-full">
+                            {{--本文(長い場合"..."表示)--}}
+                            <p class="mt-4 text-gray-600 py-4">{{Str::limit($boshujoho->body, 500, '...')}} </p>
+                            <div class="text-sm font-semibold flex flex-row-reverse">
+                                <p>{{$boshujoho->created_at->diffForHumans()}}</p>
+                            </div>
+                            {{--投稿間の区切り線（太めの線）--}}
+                            <hr class="w-full bg-gray-600 h-0.5">
                         </div>
-
+                        @endforeach
                     </div>
-</x-guest-layout>
+                    <div class="flex justify-center">
+                        <div>
+                            <a href="{{ route('register') }}">
+                                もっとみる
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white mt-10 w-full rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+                    {{--学習コミュニティ一覧コンテナ--}}
+                    <div class="mt-4">
+                        <div class="flex pb-1 font-extrabold">
+                            ★学習コミュニティ一覧
+                        </div>
+                        @foreach ($communities as $community)
+                        <div class="mt-4 mx-4 sm:p-2">
+                            {{-- コミュニティ名 --}}
+                            <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
+                                <a href="{{ route('register') }}">コミュニティ名： {{ $community->name }}</a>
+                            </div>
+                            <hr class="w-full">
+                            <div class="flex pb-1">
+                                代表者：
+                                {{-- アバター --}}
+                                <div>
+                                    <img class="rounded-full w-12 h-12" src="{{asset('storage/avatar/'.($community->user->avatar??'user_default.jpg'))}}">
+                                </div>
+                                {{-- name --}}
+                                <div class="ml-2 ">
+                                    <h1 class="text-lg text-gray-700 font-semibold float-left pt-3">
+                                        {{ $community->user->name??'削除されたユーザ' }}
+                                    </h1>
+                                </div>
+                            </div>
+                            <hr class="w-full">
+                            {{-- エリア・カテゴリー・学習内容 --}}
+                            <div class="text-gray-700 pt-3 pb-3">
+                                <p>エリア：{{ $community->area->area }} / カテゴリー：{{ $community->category->category }} / 学習内容：{{ $community->content }}</p>
+                            </div>
+                            <hr class="w-full">
+                            {{--本文(長い場合"..."表示)--}}
+                            <p class="mt-4 text-gray-600 py-4">{{Str::limit($community->about, 500, '...')}} </p>
+                            <div class="text-sm font-semibold flex flex-row-reverse">
+                                <p>{{$community->created_at->diffForHumans()}}</p>
+                            </div>
+                            {{--投稿間の区切り線（太めの線）--}}
+                            <hr class="w-full bg-gray-600 h-0.5">
+                        </div>
+                        @endforeach
+                    </div>
+                    <div class="flex justify-center">
+                        <div>
+                            <a href="{{ route('register') }}">
+                                もっとみる
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </x-app-layout>

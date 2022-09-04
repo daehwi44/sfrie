@@ -17,9 +17,9 @@
       <form method="post" action="{{route('community.store')}}" enctype="multipart/form-data">
         @csrf
         <!-- コミュニティ名 -->
-        <div class="md:flex items-center mt-8">
+        <div class="md:flex items-center">
           <div class="w-full flex flex-col">
-            <label for="body" class="font-semibold leading-none mt-4">コミュニティ名</label>
+            <label for="body" class="font-semibold leading-none">コミュニティ名</label>
             <input type="text" name="name" class="w-auto py-2 placeholder-gray-300 border border-gray-300 rounded-md" id="name" value="{{old('name')}}" placeholder="Enter Title">
           </div>
         </div>

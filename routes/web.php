@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BoshujohoController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\WelcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,11 +44,12 @@ Route::post('post/comment/store', [CommentController::class, 'store'])->name('co
 //postのルート
 Route::get('community/{community_id?}/post', [PostController::class, 'index'])->name('post.index');
 Route::get('community/{community_id?}/post/create', [PostController::class, 'create'])->name('post.create');
-// Route::post('post', [PostController::class, 'store'])->name('post.store');
+Route::post('post', [PostController::class, 'store'])->name('post.store');
 Route::get('post/{post}', [PostController::class, 'show'])->name('post.show');
 Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
 Route::patch('post/{post}', [PostController::class, 'update'])->name('post.update');
 Route::delete('post/{post}', [PostController::class, 'destroy'])->name('post.destroy');
+
 
 // お問い合わせ
 Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');
@@ -68,11 +70,13 @@ Route::middleware(['can:admin'])->group(function () {
     Route::patch('roles/{user}/detach', [RoleController::class, 'detach'])->name('role.detach');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('top');
+
+//welcomeルーティング
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 //dashboardルーティング
-Route::get('/dashboard', [BoshujohoController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [WelcomeController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
+
+
 
 require __DIR__ . '/auth.php';

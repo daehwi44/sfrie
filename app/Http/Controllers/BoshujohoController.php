@@ -148,12 +148,5 @@ class BoshujohoController extends Controller
         $boshujoho->delete();
         return redirect()->route('boshujoho.index')->with('message', '投稿を削除しました');
     }
-
-    public function dashboard()
-    {
-        $boshujohos = boshujoho::orderBy('created_at', 'desc')->simplePaginate(5);
-        $user = auth()->user();
-        return view('dashboard', compact('boshujohos', 'user'));
-    }
-
+   
 }
