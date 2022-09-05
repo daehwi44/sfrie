@@ -50,6 +50,8 @@ Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('post.edit
 Route::patch('post/{post}', [PostController::class, 'update'])->name('post.update');
 Route::delete('post/{post}', [PostController::class, 'destroy'])->name('post.destroy');
 
+//コミュニティ内のユーザー一覧のルート
+Route::get('community/{community_id?}/members', [CommunityController::class, 'members'])->name('community.members');
 
 // お問い合わせ
 Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');

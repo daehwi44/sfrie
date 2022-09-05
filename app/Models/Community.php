@@ -41,4 +41,11 @@ class Community extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    // community_userの多対多リレーション
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
 }

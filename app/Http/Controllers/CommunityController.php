@@ -81,7 +81,7 @@ class CommunityController extends Controller
      */
     public function show(Community $community)
     {
-    //      return view('community.show', compact('community'));
+        //      return view('community.show', compact('community'));
     }
 
     /**
@@ -97,6 +97,15 @@ class CommunityController extends Controller
         // categoryテーブルの全データを取得する
         $categories = M_category::all();
         return view('community.edit', compact('community', 'areas', 'categories'));
+    }
+
+
+    // ユーザー一覧表示
+    public function members($community_id)
+    {
+        $communities = Community::with('users')->where('id', $community_id)->get();
+        // dd($communities);
+        return view('community.member', compact('communities'));
     }
 
     /**

@@ -67,43 +67,31 @@
                         <div class="flex pb-1 font-extrabold">
                             ★学習コミュニティ一覧
                         </div>
-                        @foreach ($communities as $community)
-                        <div class="mt-4 mx-4 sm:p-2">
-                            {{-- コミュニティ名 --}}
-                            <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
-                                <a href="{{route('post.index',['community_id' => $community->id])}}">コミュニティ名： {{ $community->name }}</a>
-                            </div>
-                            <hr class="w-full">
-                            <div class="flex pb-1">
-                                代表者：
-                                {{-- アバター --}}
-                                <div>
-                                    <img class="rounded-full w-12 h-12" src="{{asset('storage/avatar/'.($community->user->avatar??'user_default.jpg'))}}">
-                                </div>
-                                {{-- name --}}
-                                <div class="ml-2 ">
-                                    <h1 class="text-lg text-gray-700 font-semibold float-left pt-3">
-                                        {{ $community->user->name??'削除されたユーザ' }}
-                                    </h1>
-                                </div>
-                            </div>
-                            <hr class="w-full">
-                            {{-- エリア・カテゴリー・学習内容 --}}
-                            <div class="text-gray-700 pt-3 pb-3">
-                                <p>エリア：{{ $community->area->area }} / カテゴリー：{{ $community->category->category }} / 学習内容：{{ $community->content }}</p>
-                            </div>
-                            <hr class="w-full">
-                            {{--本文(長い場合"..."表示)--}}
-                            <p class="mt-4 text-gray-600 py-4">{{Str::limit($community->about, 500, '...')}} </p>
-                            <div class="text-sm font-semibold flex flex-row-reverse">
-                                <p>{{$community->created_at->diffForHumans()}}</p>
-                            </div>
+                        <div class="grid grid-cols-4 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-4">
 
+                            {{-- コミュニティ繰り返し表示 --}}
+                            @foreach ($communities as $community)
+                            <a href="{{route('post.index',['community_id' => $community->id])}}" class=" flex flex-col items-center p-8 transition-colors duration-300 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-blue-600 dark:border-gray-700 dark:hover:border-transparent">
 
-                            {{--投稿間の区切り線（太めの線）--}}
-                            <hr class="w-full bg-gray-600 h-0.5">
+                                {{-- コミュニティ画像 --}}
+                                <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="{{asset('storage/images/'.($community->image??'user_default.jpg'))}}">
+
+                                {{-- コミュニティ名 --}}
+                                <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">{{ $community->name }}</h1>
+
+                                {{-- エリア --}}
+                                <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">エリア：{{ $community->area->area }} </p>
+
+                                {{-- カテゴリー --}}
+                                <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">カテゴリー：{{ $community->category->category }}</p>
+
+                                {{-- 学習内容 --}}
+                                <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">学習内容：{{ $community->content }}</p>
+
+                            </a>
+                            @endforeach
+
                         </div>
-                        @endforeach
                     </div>
                     <div class="flex justify-center">
                         <div>

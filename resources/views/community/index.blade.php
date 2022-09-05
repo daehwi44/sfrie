@@ -25,8 +25,8 @@
                 @foreach ($communities as $community)
                 <a href="{{route('post.index',['community_id' => $community->id])}}" class=" flex flex-col items-center p-8 transition-colors duration-300 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-blue-600 dark:border-gray-700 dark:hover:border-transparent">
 
-                  {{-- コミュニティ画像（今はアバター画像になっているので後から変更） --}}
-                  <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="{{asset('storage/avatar/'.($community->user->avatar??'user_default.jpg'))}}">
+                  {{-- コミュニティ画像 --}}
+                  <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="{{asset('storage/images/'.($community->image??'user_default.jpg'))}}">
 
                   {{-- コミュニティ名 --}}
                   <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">{{ $community->name }}</h1>

@@ -37,7 +37,7 @@ class User extends Authenticatable
      */
     public function area()
     {
-        return $this->belongsTo(M_area::class);
+        return $this->belongsTo(M_area::class, "m_area_id");
     }
 
     /**
@@ -45,7 +45,13 @@ class User extends Authenticatable
      */
     public function category()
     {
-        return $this->belongsTo(M_category::class);
+        return $this->belongsTo(M_category::class, "m_category_id");
+    }
+
+    // community_userの多対多リレーション
+    public function communitiesMany()
+    {
+        return $this->belongsToMany(Community::class);
     }
 
     /**
