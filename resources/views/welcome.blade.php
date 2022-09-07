@@ -23,8 +23,10 @@
         {{--メインコンテンツ--}}
         <div class="mx-4 sm:p-2">
             <div class="mt-4">
-                <div class="bg-white w-full rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
-                    {{--募集情報コンテナ--}}
+
+                {{--募集情報コンテナ--}}
+                <div class="bg-white max-w-7xl mx-auto rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+
                     <div class="mt-4">
                         <div class="flex pb-1 font-extrabold">
                             ★募集情報
@@ -68,8 +70,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white mt-10 w-full rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
-                    {{--学習コミュニティ一覧コンテナ--}}
+                {{--学習コミュニティ一覧コンテナ--}}
+                <div class="bg-white max-w-7xl mx-auto mt-10 rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+
                     <div class="mt-4">
                         <div class="flex pb-1 font-extrabold">
                             ★学習コミュニティ一覧

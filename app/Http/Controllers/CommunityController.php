@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Community;
 use App\Models\M_area;
 use App\Models\M_category;
+use App\Models\Models\CommunityUser;
 use Illuminate\Http\Request;
 
 class CommunityController extends Controller
@@ -107,6 +108,20 @@ class CommunityController extends Controller
         // dd($communities);
         return view('community.member', compact('communities'));
     }
+
+    // ユーザー追加
+    public function add($community_id)
+    {
+        $community = Community::find($community_id);
+        $user_id = auth()->user()->id;
+        $community->users()->attach($user_id);
+        $communities = Community::with('users')->where('id', $community_id)->get();
+              
+
+        return view('community.member', compact('communities'));
+    }
+
+
 
     /**
      * Update the specified resource in storage.

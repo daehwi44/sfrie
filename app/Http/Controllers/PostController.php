@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Models\Community;
+use App\Models\CommunityUser;
 
 class PostController extends Controller
 {
@@ -19,7 +20,12 @@ class PostController extends Controller
         $posts = Post::where('community_id', $community_id)->orderBy('created_at', 'desc')->get();
         $user = auth()->user();
         $community = Community::find($community_id);
-        return view('post.index', compact('posts', 'user', 'community'));
+
+        //ユーザーがすでにコミュニティに入っているかの判別
+        $isJoin = CommunityUser::where('user_id', auth()->user()->id)->where('community_id', $community_id)->exists();
+        
+
+        return view('post.index', compact('posts', 'user','community', 'isJoin'));
     }
 
     /**

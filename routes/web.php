@@ -53,6 +53,9 @@ Route::delete('post/{post}', [PostController::class, 'destroy'])->name('post.des
 //コミュニティ内のユーザー一覧のルート
 Route::get('community/{community_id?}/members', [CommunityController::class, 'members'])->name('community.members');
 
+//コミュニティ参加
+Route::get('community/{community_id?}/add', [CommunityController::class, 'add'])->name('community.add');
+
 // お問い合わせ
 Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');
 Route::post('contact/store', [ContactController::class, 'store'])->name('contact.store');

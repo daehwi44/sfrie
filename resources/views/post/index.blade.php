@@ -16,6 +16,19 @@
 
         <h4 class="mx-2 mt-2 font-medium text-gray-800 dark:text-gray-200 hover:underline">代表者:{{ $community->user->name }}</h4>
         <p class="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400 hover:underline">エリア：{{ $community->area->area }} / 学習内容：{{ $community->content }}</p>
+
+        @if($isJoin)
+
+        <p class="text-blue-600/100 text-xl font-bold pt-10">このコミュニティに参加中！</p>
+
+        @else
+
+        <a href="{{ route('community.add',['community_id' => $community->id])}}" class="mt-10 px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-600 rounded-md hover:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-80">このコミュニティに参加する</a>
+
+
+        @endif
+
+
       </div>
 
       <div class="flex flex-col justify-between flex-1 mt-6">
@@ -50,6 +63,12 @@
             </svg>
             <span class="mx-4 font-medium">コミュニティ詳細</span>
           </a>
+
+
+
+
+
+
 
         </nav>
       </div>
