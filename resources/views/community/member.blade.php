@@ -1,5 +1,5 @@
 <x-app-layout>
-  <x-slot name="header">  </x-slot>
+  <x-slot name="header"> </x-slot>
 
   <div class='flex'>
 
@@ -26,8 +26,8 @@
                   @foreach($community->users as $user)
                   <a href="{{route('profile.show',$user)}}" class=" flex flex-col items-center p-8 transition-colors duration-300 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-blue-600 dark:border-gray-700 dark:hover:border-transparent">
 
-                    {{-- コミュニティ画像 --}}
-                    <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}">
+                    {{-- ユーザー画像 --}}
+                    <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="{{asset('storage/avatar/'.($user->avatar??'user_default.jpg'))}}">
 
                     {{-- ユーザー名 --}}
                     <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">{{ $user->name }}</h1>
