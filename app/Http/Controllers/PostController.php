@@ -37,7 +37,10 @@ class PostController extends Controller
     {
 
         $community = Community::find($community_id);
-        return view('post.create', compact('community'));
+        //ユーザーがすでにコミュニティに入っているかの判別
+        $isJoin = CommunityUser::where('user_id', auth()->user()->id)->where('community_id', $community_id)->exists();
+
+        return view('post.create', compact('community', 'isJoin'));
     }
 
     /**
@@ -76,6 +79,8 @@ class PostController extends Controller
         return redirect()->route('post.index', ['community_id' => $community->id])->with('message', '投稿を作成しました');
     }
 
+
+
     /**
      * Display the specified resource.
      *
@@ -85,8 +90,14 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $community = Community::find($post->community_id);
-        return view('post.show', compact('post','community'));
+
+        //ユーザーがすでにコミュニティに入っているかの判別
+        $isJoin = CommunityUser::where('user_id', auth()->user()->id)->where('community_id', $post->community_id)->exists();
+
+        return view('post.show', compact('post','community', 'isJoin'));
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -97,7 +108,11 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $community = Community::find($post->community_id);
-        return view('post.edit', compact('post', 'community'));
+
+        //ユーザーがすでにコミュニティに入っているかの判別
+        $isJoin = CommunityUser::where('user_id', auth()->user()->id)->where('community_id', $post->community_id)->exists();
+
+        return view('post.edit', compact('post','community', 'isJoin'));
     }
 
     /**

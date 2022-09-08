@@ -23,4 +23,11 @@ class WelcomeController extends Controller
         return view('dashboard', compact('boshujohos','user', 'communities'));
     }
 
+    public function shisetsu()
+    {
+        
+        return view('shisetsu.index');
+    }
+
+
 }

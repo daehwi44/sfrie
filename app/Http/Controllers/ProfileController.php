@@ -20,6 +20,11 @@ class ProfileController extends Controller
         return view('profile.index', compact('users'));
     }
 
+    public function show(User $user)
+    {
+        return view('profile.show', compact('user'));
+    }
+
     //プロフィール編集画面へ
     public function edit(User $user)
     {

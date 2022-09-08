@@ -1,6 +1,6 @@
-<x-guest-layout>
+<x-guest-layout class="bg-gray-100">
     <x-slot name="header">
-        <div class="bg-white h-14">
+        <div class="h-14">
             <h2 class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
                 <span class="text-4xl">Sfrie</span>-学習仲間を見つける掲示板-
             </h2>
@@ -10,16 +10,27 @@
     {{--メインビジュアル--}}
     <img src="{{asset('images/main.png')}}" class="w-full">
 
-    <body>
-        <section class="bg-white font-sans text-center my-8 px-8">
-            <h1 class="capitalize font-medium">まずはご登録から</h1>
-            <p class="text-gray-700 mt-2 mb-6">登録はこのボタンをクリックしてください </p>
-            <a href="{{ route('register') }}" class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-600 rounded-md hover:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-80">登録する</a>
-        </section>
-    </body>
+
+    <section class="bg-gray-100 dark:bg-gray-900 lg:py-12 lg:flex lg:justify-center">
+        <div class="bg-white dark:bg-gray-800 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg">
+            <div class="lg:w-1/2">
+                <image class="h-64 bg-cover lg:rounded-lg lg:h-full" src="{{asset('images/friends.jpg')}}"></image>
+            </div>
+
+            <div class="max-w-xl px-6 py-12 lg:max-w-5xl lg:w-1/2">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">ご登録は<span class="text-blue-600 dark:text-blue-400">無料</span>です！</h2>
+                <p class="mt-4 text-gray-600 dark:text-gray-400">Sufre（スフレ）はあなたの学び、また一緒に学ぶ仲間探しを応援します。勉強をしているんだけど一人では心細い...一緒にモチベーションを維持してくれる仲間がいれば...わからないところを教えあいたい...そんな悩みを持つあなたを手助けしてくれます。</p>
+
+                <div class="mt-8">
+                    <a href="{{ route('register') }}" class="px-5 py-2 font-semibold text-gray-100 transition-colors duration-300 transform bg-gray-900 rounded-md hover:bg-gray-700">ご登録はこちら</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     {{--背景--}}
-    <div class="bg-zinc-700 pt-14 pb-14 bg-right bg-cover">
+    <div class="bg-gray-100 pt-5 pb-14 bg-right bg-cover">
         {{--メインコンテンツ--}}
         <div class="mx-4 sm:p-2">
             <div class="mt-4">
@@ -28,8 +39,8 @@
                 <div class="bg-white max-w-7xl mx-auto rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
 
                     <div class="mt-4">
-                        <div class="flex pb-1 font-extrabold">
-                            ★募集情報
+                        <div class="flex pb-1 font-extrabold text-2xl">
+                            ◆学習仲間募集情報
                         </div>
                         @foreach ($boshujohos as $boshujoho)
                         <div class="mt-4 mx-4 sm:p-2">
@@ -37,7 +48,7 @@
                             <div class="flex pb-1">
                                 {{-- アバター --}}
                                 <div>
-                                    <img class="rounded-full w-12 h-12" src="{{asset('storage/avatar/'.($boshujoho->user->avatar??'user_default.jpg'))}}">
+                                    <img class="rounded-full w-12 h-12 object-cover" src="{{asset('storage/avatar/'.($boshujoho->user->avatar??'user_default.jpg'))}}">
                                 </div>
                                 {{-- name --}}
                                 <div class="ml-2 ">
@@ -74,8 +85,8 @@
                 <div class="bg-white max-w-7xl mx-auto mt-10 rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
 
                     <div class="mt-4">
-                        <div class="flex pb-1 font-extrabold">
-                            ★学習コミュニティ一覧
+                        <div class="flex pb-1 font-extrabold text-2xl">
+                            ◆学習コミュニティ一覧
                         </div>
                         <div class="grid grid-cols-4 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-4">
 

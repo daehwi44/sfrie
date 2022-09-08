@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
         if (request()->hasFile('avatar')) {
             $name = request()->file('avatar')->getClientOriginalName();
             $avatar = date('Ymd_His') . '_' . $name;
-            request()->file('avatar')->storeAs('public/avatar', $avatar);
+            request()->file('avatar')->move('storage/avatar', $avatar);
             //avatarファイル名をデータに追加
             $attr['avatar'] = $avatar;
         }

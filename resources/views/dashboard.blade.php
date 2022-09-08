@@ -10,7 +10,7 @@
     {{--メインビジュアル--}}
     <img src="{{asset('images/main.png')}}" class="w-full">
     {{--背景--}}
-    <div class="bg-zinc-700 pb-14 bg-right bg-cover">
+    <div class="bg-zinc-200 pb-14 bg-right bg-cover">
         {{--メインコンテンツ--}}
         <div class="mx-4 sm:p-2">
             <div class="mt-4">
@@ -19,8 +19,8 @@
                 <div class="bg-white max-w-7xl mx-auto rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
 
                     <div class="mt-4">
-                        <div class="flex pb-1 font-extrabold">
-                            ★募集情報
+                        <div class="flex pb-1 font-extrabold text-2xl">
+                            ◆学習仲間募集情報
                         </div>
                         @foreach ($boshujohos as $boshujoho)
                         <div class="mt-4 mx-4 sm:p-2">
@@ -28,7 +28,7 @@
                             <div class="flex pb-1">
                                 {{-- アバター --}}
                                 <div>
-                                    <img class="rounded-full w-12 h-12" src="{{asset('storage/avatar/'.($boshujoho->user->avatar??'user_default.jpg'))}}">
+                                    <img class="rounded-full w-12 h-12 object-cover" src="{{asset('storage/avatar/'.($boshujoho->user->avatar??'user_default.jpg'))}}">
                                 </div>
                                 {{-- name --}}
                                 <div class="ml-2 ">
@@ -66,8 +66,8 @@
                 <div class="bg-white mt-10 max-w-7xl mx-auto rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
 
                     <div class="mt-4">
-                        <div class="flex pb-1 font-extrabold">
-                            ★学習コミュニティ一覧
+                        <div class="flex pb-1 font-extrabold text-2xl">
+                            ◆学習コミュニティ一覧
                         </div>
                         <div class="grid grid-cols-4 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-4">
 

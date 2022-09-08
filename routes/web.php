@@ -22,9 +22,13 @@ use App\Http\Controllers\WelcomeController;
 |
 */
 
+//施設情報のルート
+Route::get('shisetsu', [WelcomeController::class, 'shisetsu'])->name('shisetsu.index');
 
 //学習コミュニティのルート
-Route::resource('community', CommunityController::class)->except(['show']);;
+Route::resource('community', CommunityController::class)->except(['show']);
+Route::get('community/{community_id?}', [CommunityController::class, 'show'])->name('community.show');
+
 
 //募集情報コメント保存用ルート
 Route::post('boshujoho/boshucomment/store', [BoshuCommentController::class, 'store'])->name('boshucomment.store');
@@ -63,6 +67,9 @@ Route::post('contact/store', [ContactController::class, 'store'])->name('contact
 //プロフィール編集用ルート設定を追加
 Route::get('profile/{user}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('profile/{user}', [ProfileController::class, 'update'])->name('profile.update');
+
+//プロフィール詳細表示
+Route::get('profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
 
 
 // 管理者用画面

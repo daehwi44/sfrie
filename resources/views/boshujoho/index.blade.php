@@ -19,7 +19,7 @@
             <div class="flex pb-1">
               {{-- アバター --}}
               <div>
-                <img class="rounded-full w-12 h-12" src="{{asset('storage/avatar/'.($boshujoho->user->avatar??'user_default.jpg'))}}">
+                <img class="rounded-full w-12 h-12 object-cover" src="{{asset('storage/avatar/'.($boshujoho->user->avatar??'user_default.jpg'))}}">
               </div>
               {{-- name --}}
               <div class="ml-2 ">

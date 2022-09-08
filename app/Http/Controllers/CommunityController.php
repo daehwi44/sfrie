@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Community;
+use App\Models\CommunityUser;
 use App\Models\M_area;
 use App\Models\M_category;
-use App\Models\Models\CommunityUser;
 use Illuminate\Http\Request;
 
 class CommunityController extends Controller
@@ -80,9 +80,14 @@ class CommunityController extends Controller
      * @param  \App\Models\Community  $community
      * @return \Illuminate\Http\Response
      */
-    public function show(Community $community)
+    public function show($community_id)
     {
-        //      return view('community.show', compact('community'));
+        $community = Community::find($community_id);
+
+        //ユーザーがすでにコミュニティに入っているかの判別
+        $isJoin = CommunityUser::where('user_id', auth()->user()->id)->where('community_id', $community_id)->exists();
+
+        return view('community.show', compact('community', 'isJoin'));
     }
 
     /**
@@ -104,9 +109,15 @@ class CommunityController extends Controller
     // ユーザー一覧表示
     public function members($community_id)
     {
+        $community = Community::find($community_id);
         $communities = Community::with('users')->where('id', $community_id)->get();
         // dd($communities);
-        return view('community.member', compact('communities'));
+
+        //ユーザーがすでにコミュニティに入っているかの判別
+        $isJoin = CommunityUser::where('user_id', auth()->user()->id)->where('community_id', $community_id)->exists();
+
+
+        return view('community.member', compact('community','communities', 'isJoin'));
     }
 
     // ユーザー追加
@@ -115,10 +126,13 @@ class CommunityController extends Controller
         $community = Community::find($community_id);
         $user_id = auth()->user()->id;
         $community->users()->attach($user_id);
-        $communities = Community::with('users')->where('id', $community_id)->get();
-              
 
-        return view('community.member', compact('communities'));
+        $communities = Community::with('users')->where('id', $community_id)->get();
+
+        //ユーザーがすでにコミュニティに入っているかの判別
+        $isJoin = CommunityUser::where('user_id', auth()->user()->id)->where('community_id', $community_id)->exists();
+
+        return view('community.member', compact('communities','community', 'isJoin'));
     }
 
 
