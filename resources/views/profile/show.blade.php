@@ -13,7 +13,7 @@
               <div class="mt-4 ">
                 {{--ユーザーイメージ写真--}}
                 <div>
-                  <img class="mx-auto m-2 rounded-full w-50 h-50" src="{{asset('storage/avatar/'.($user->avatar??'user_default.jpg'))}}">
+                  <img class="mx-auto m-2 rounded-full w-48 h-48 object-cover" src="{{asset('storage/avatar/'.($user->avatar??'user_default.jpg'))}}">
                 </div>
                 {{-- ユーザー名 --}}
                 <div class="text-2xl text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
