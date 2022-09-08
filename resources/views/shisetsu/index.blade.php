@@ -79,7 +79,7 @@
           <div class="mt-8">
 
             <h1 class="mt-4 text-xl font-semibold text-gray-800 dark:text-white">
-              Meguriba</h1>
+              Megriba</h1>
 
             {{--★★★★☆--}}
             <ul class="flex items-center gap-x-1">
