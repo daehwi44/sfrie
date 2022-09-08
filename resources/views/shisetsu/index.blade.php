@@ -52,7 +52,7 @@
 
             <p class="mt-2 text-gray-500 dark:text-gray-400">
               広大な敷地面積を持つ研修施設。21世紀松下村塾という愛称がある。
-              季節ごとにきれいな花がある。貸し出しは最小で15人室だが料金が安い。
+              季節ごとにきれいな花が咲いている。貸し出しは最小で15人室だが料金が安い。
             </p>
 
             <div class="flex items-center justify-between mt-4">
@@ -233,7 +233,7 @@
 
             <p class="mt-2 text-gray-500 dark:text-gray-400">
               広大な敷地面積を持つ研修施設。21世紀松下村塾という愛称がある。
-              季節ごとにきれいな花がある。貸し出しは最小で15人室だが料金が安い。
+              季節ごとにきれいな花が咲いている。貸し出しは最小で15人室だが料金が安い。
             </p>
 
             <div class="flex items-center justify-between mt-4">
@@ -260,7 +260,7 @@
           <div class="mt-8">
 
             <h1 class="mt-4 text-xl font-semibold text-gray-800 dark:text-white">
-              Meguriba</h1>
+              Megriba</h1>
 
             {{--★★★★☆--}}
             <ul class="flex items-center gap-x-1">
