@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('community_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('community_id')->references('id')->on('communities');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('community_id')->references('id')->on('communities')->onDelete('cascade');
             $table->unique(['community_id', 'user_id']);
             $table->timestamps();
         });

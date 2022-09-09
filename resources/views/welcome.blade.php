@@ -19,7 +19,7 @@
 
             <div class="max-w-xl px-6 py-12 lg:max-w-5xl lg:w-1/2">
                 <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">ご登録は<span class="text-blue-600 dark:text-blue-400">無料</span>です！</h2>
-                <p class="mt-4 text-gray-600 dark:text-gray-400">Sufre（スフレ）はあなたの学び、また一緒に学ぶ仲間探しを応援します。勉強をしているんだけど一人では心細い...一緒にモチベーションを維持してくれる仲間がいれば...わからないところを教えあいたい...そんな悩みを持つあなたを手助けしてくれます。</p>
+                <p class="mt-4 text-gray-600 dark:text-gray-400">Sfrie（スフレ）はあなたの学び、また一緒に学ぶ仲間探しを応援します。勉強をしているんだけど一人では心細い...一緒にモチベーションを維持してくれる仲間がいれば...わからないところを教えあいたい...そんな悩みを持つあなたを手助けしてくれます。</p>
 
                 <div class="mt-8">
                     <a href="{{ route('register') }}" class="px-5 py-2 font-semibold text-gray-100 transition-colors duration-300 transform bg-gray-900 rounded-md hover:bg-gray-700">ご登録はこちら</a>

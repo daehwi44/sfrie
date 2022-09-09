@@ -153,11 +153,16 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        
+        $community_id=$post->community_id;
+
         //投稿に対するコメント削除
         $post->comments()->delete();
         //投稿を削除
         $post->delete();
-        return redirect()->route('post.index')->with('message', '投稿を削除しました');
+
+
+        return redirect()->route('post.index', compact('community_id'))->with('message', '投稿を削除しました');
     }
 
     //自分の投稿のみ表示
