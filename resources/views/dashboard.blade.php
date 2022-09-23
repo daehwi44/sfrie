@@ -97,7 +97,7 @@
                     </div>
                     <div class="flex justify-center">
                         <div>
-                            <a href="{{ route('boshujoho.index') }}">
+                            <a href="{{ route('community.index') }}">
                                 もっとみる
                             </a>
                         </div>
