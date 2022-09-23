@@ -561,6 +561,10 @@ video {
   margin-left: 0.75rem;
 }.-ml-px {
   margin-left: -1px;
+}.mb-4 {
+  margin-bottom: 1rem;
+}.ml-10 {
+  margin-left: 2.5rem;
 }.mt-4 {
   margin-top: 1rem;
 }.mr-2 {
@@ -573,10 +577,6 @@ video {
   margin-top: 0.25rem;
 }.mb-2 {
   margin-bottom: 0.5rem;
-}.mb-4 {
-  margin-bottom: 1rem;
-}.ml-10 {
-  margin-left: 2.5rem;
 }.ml-20 {
   margin-left: 5rem;
 }.mt-8 {
@@ -756,8 +756,6 @@ video {
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }.overflow-hidden {
   overflow: hidden;
-}.whitespace-pre-line {
-  white-space: pre-line;
 }.whitespace-pre-wrap {
   white-space: pre-wrap;
 }.rounded-md {
