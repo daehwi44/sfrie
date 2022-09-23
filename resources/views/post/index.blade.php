@@ -37,7 +37,7 @@
               </div>
               <hr class="w-full">
               {{--本文(長い場合"..."表示)--}}
-              <p class="mt-4 text-gray-600 py-4">{{Str::limit($post->body, 500, '...')}} </p>
+              <p class="whitespace-pre-wrap mt-4 text-gray-600 py-4">{{Str::limit($post->body, 500, '...')}} </p>
               <div class="text-sm font-semibold flex flex-row-reverse">
                 <p>{{$post->created_at->diffForHumans()}}</p>
               </div>

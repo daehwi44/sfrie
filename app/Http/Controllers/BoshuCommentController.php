@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BoshuCommentRequest;
 use App\Models\BoshuComment;
 use Illuminate\Http\Request;
 
@@ -33,19 +34,18 @@ class BoshuCommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BoshuCommentRequest $request)
     {
-        $inputs = request()->validate([
-            'body' => 'required|max:1000',
-        ]);
+        // バリデーション済みデータの取得
+        $validated = $request->validated();
 
         $boshucomments = BoshuComment::create([
-            'body' => $inputs['body'],
+            'body' => $validated['body'],
             'user_id' => auth()->user()->id,
             'boshujoho_id' => $request->boshujoho_id
         ]);
 
-        return back();
+        return back()->with('message', 'コメントを投稿しました');
     }
 
     /**

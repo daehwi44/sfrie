@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Role;
-use App\Models\M_area;
-use App\Models\M_category;
+use App\Models\MArea;
+use App\Models\MCategory;
 
 
 class ProfileController extends Controller
@@ -29,9 +29,9 @@ class ProfileController extends Controller
     public function edit(User $user)
     {
         // areaテーブルの全データを取得する
-        $areas = M_area::all();
+        $areas = MArea::all();
         // categoryテーブルの全データを取得する
-        $categories = M_category::all();
+        $categories = MCategory::all();
         return view('profile.edit', compact('user', 'areas', 'categories'));
     }
 

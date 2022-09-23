@@ -16,7 +16,7 @@
                   <img class="mx-auto m-2 rounded-full w-48 h-48 object-cover" src="{{asset('storage/avatar/'.($user->avatar??'user_default.jpg'))}}">
                 </div>
                 {{-- ユーザー名 --}}
-                <div class="text-2xl text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
+                <div class="text-2xl text-gray-700 font-semibold  float-left pt-3 pb-3">
                   {{ $user->name }}
                 </div>
 
@@ -30,7 +30,7 @@
                 </div>
                 <hr class="w-full">
                 {{--本文--}}
-                <p class="mt-4 text-gray-600 py-4">山口県在住です。大学では英米文学を学んでおり、英語が得意です。最近は、TOEICの受験に向けて日々勉強しております。大学3年生のときには、英語技能検定で準1級を取得することができました。この経験を活かし皆様に英語を教えてあげたりできたらと思っています。</p>
+                <p class="whitespace-pre-wrap mt-4 text-gray-600 py-4">山口県在住です。<br>大学では英米文学を学んでおり、英語が得意です。<br>最近は、TOEICの受験に向けて日々勉強しております。<br>大学3年生のときには、英語技能検定で準1級を取得することができました。<br>この経験を活かし皆様に英語を教えてあげたりできたらと思っています。</p>
 
                 <hr class="w-full mb-2">
 

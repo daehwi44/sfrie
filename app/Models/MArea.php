@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class M_category extends Model
+class MArea extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'category',
+        'area',
     ];
 
     /**
-     * カテゴリーに紐付くUserの取得(Userモデルとのリレーション)
+     * 都道府県に紐付くUserの取得(Userモデルとのリレーション)
      */
     public function users()
     {
-        return $this->hasMany(user::class, 'm_category_id', 'id');
+        return $this->hasMany(user::class, 'm_area_id', 'id');
     }
 
     /**

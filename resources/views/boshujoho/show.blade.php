@@ -6,6 +6,9 @@
         投稿詳細
       </h2>
     </div>
+    {{--エラーメッセージ--}}
+    <x-auth-validation-errors class="mb-4 ml-10" :errors="$errors" />
+    {{--コメント完了メッセージ--}}
     <x-message :message="session('message')" />
   </x-slot>
 
@@ -70,7 +73,7 @@
 
 
             {{--本文--}}
-            <p class="mt-4 text-gray-600 py-4">{{$boshujoho->body}} </p>
+            <p class="whitespace-pre-wrap mt-4 text-gray-600 py-4">{{$boshujoho->body}} </p>
             <div class="text-sm font-semibold flex flex-row-reverse">
               <p>{{$boshujoho->created_at->diffForHumans()}}</p>
             </div>
@@ -88,11 +91,12 @@
 
         {{-- コメント表示 --}}
         @foreach ($boshujoho->boshucomments as $boshucomment)
-        <div class="bg-white w-full  rounded-2xl px-10 py-8 shadow-lg hover:shadow-2xl transition duration-500 mt-8">
-          {{$boshucomment->body}}
+        <div class="bg-white w-full rounded-2xl px-10 py-8 shadow-lg hover:shadow-2xl transition duration-500 mt-8">
+          <div class="whitespace-pre-wrap">{{$boshucomment->body}}</div>
           <div class="text-sm font-semibold flex flex-row-reverse">
+            {{-- ユーザー名 --}}
             <p class="float-left pl-2 pt-2 pb-2"> {{$boshucomment->user->name??'削除されたユーザ'}} • {{$boshucomment->created_at->diffForHumans()}}</p>
-            {{-- アバター追加 --}}
+            {{-- アバター --}}
             <span>
               <img class="rounded-full w-8 h-8 object-cover" src="{{asset('storage/avatar/'.($boshucomment->user->avatar??'user_default.jpg'))}}">
             </span>
@@ -100,7 +104,7 @@
         </div>
         @endforeach
 
-        <!--コメント投稿部分-->
+        {{-- コメント投稿部分 --}}
         <div class="mt-4 mb-12">
           <form method="post" action="{{route('boshucomment.store')}}">
             @csrf
@@ -109,6 +113,7 @@
             <x-button class="float-right mr-4 mb-12">コメントする</x-button>
           </form>
         </div>
+
       </div>
     </div>
   </div>

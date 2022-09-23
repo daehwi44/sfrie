@@ -1,5 +1,8 @@
 <x-app-layout>
   <x-slot name="header">
+    {{--エラーメッセージ--}}
+    <x-validation-errors class="mb-4 ml-10" :errors="$errors" />
+    {{--作成完了メッセージ--}}
     <x-message :message="session('message')" />
   </x-slot>
 
@@ -74,7 +77,7 @@
               </div>
               <hr class="w-full">
               {{--本文(長い場合"..."表示)--}}
-              <p class="mt-4 text-gray-600 py-4">{{Str::limit($community->about, 500, '...')}} </p>
+              <p class="whitespace-pre-wrap mt-4 text-gray-600 py-4">{{Str::limit($community->about, 500, '...')}} </p>
               <div class="text-sm font-semibold flex flex-row-reverse">
                 <p>{{$community->created_at->diffForHumans()}}</p>
               </div>

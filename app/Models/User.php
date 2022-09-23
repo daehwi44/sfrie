@@ -33,19 +33,19 @@ class User extends Authenticatable
     }
 
     /**
-     * Userの都道府県の取得(M_areaモデルとのリレーション)
+     * Userの都道府県の取得(MAreaモデルとのリレーション)
      */
     public function area()
     {
-        return $this->belongsTo(M_area::class, "m_area_id");
+        return $this->belongsTo(MArea::class, "m_area_id");
     }
 
     /**
-     * Userのカテゴリーの取得(M_categoryモデルとのリレーション)
+     * Userのカテゴリーの取得(MCategoryモデルとのリレーション)
      */
     public function category()
     {
-        return $this->belongsTo(M_category::class, "m_category_id");
+        return $this->belongsTo(MCategory::class, "m_category_id");
     }
 
     // community_userの多対多リレーション

@@ -24,16 +24,16 @@ class Boshujoho extends Model
         return $this->belongsTo(User::class);
     }
 
-    //M_areaとのリレーション
+    //MAreaとのリレーション
     public function area()
     {
-        return $this->belongsTo(M_area::class, "m_area_id");
+        return $this->belongsTo(MArea::class, "m_area_id");
     }
 
-    //M_categoryとのリレーション
+    //MCategoryとのリレーション
     public function category()
     {
-        return $this->belongsTo(M_category::class, "m_category_id");
+        return $this->belongsTo(MCategory::class, "m_category_id");
     }
 
     //BoshuCommentとのリレーション

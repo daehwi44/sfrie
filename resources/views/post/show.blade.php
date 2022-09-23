@@ -1,5 +1,8 @@
 <x-app-layout>
   <x-slot name="header">
+    {{--エラーメッセージ--}}
+    <x-auth-validation-errors class="mb-4 ml-10" :errors="$errors" />
+    {{--コメント完了メッセージ--}}
     <x-message :message="session('message')" />
   </x-slot>
 
@@ -38,7 +41,6 @@
 
               <div class="flex pb-1">
 
-
                 {{-- アバター --}}
                 <div>
                   <img class="rounded-full w-12 h-12 object-cover" src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}">
@@ -49,8 +51,8 @@
                     {{ $post->user->name??'削除されたユーザ' }}
                   </h1>
                 </div>
-              </div>
 
+              </div>
 
               <hr class="w-full">
               {{-- title --}}
@@ -60,7 +62,7 @@
               <hr class="w-full">
 
               <div>
-                <p class="mt-4 text-gray-600 py-4">{{$post->body}}</p>
+                <p class="whitespace-pre-wrap mt-4 text-gray-600 py-4">{{$post->body}}</p>
                 @if($post->image)
                 <div>
                   (添付ファイル)
@@ -73,11 +75,14 @@
               </div>
             </div>
           </div>
+
+
           {{-- コメント表示 --}}
           @foreach ($post->comments as $comment)
           <div class="bg-white w-full  rounded-2xl px-10 py-8 shadow-lg hover:shadow-2xl transition duration-500 mt-8">
-            {{$comment->body}}
+            <div class="whitespace-pre-wrap">{{$comment->body}}</div>
             <div class="text-sm font-semibold flex flex-row-reverse">
+              {{-- ユーザー名 --}}
               <p class="float-left pt-4"> {{$comment->user->name??'削除されたユーザ'}} • {{$comment->created_at->diffForHumans()}}</p>
               {{-- アバター --}}
               <span>

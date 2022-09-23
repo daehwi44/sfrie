@@ -157,6 +157,7 @@ return [
         'title' => '件名',
         'body' => '本文',
         'image' => '画像',
+        'content' => '学習内容',
     ],
 
 ];

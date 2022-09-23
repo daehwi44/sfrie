@@ -1,3 +1,5 @@
+{{--画像投稿があるときに使用--}}
+
 @props(['errors'])
 
 @if ($errors->any())

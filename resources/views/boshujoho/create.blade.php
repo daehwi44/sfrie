@@ -1,22 +1,28 @@
 <x-app-layout>
+
   <x-slot name="header">
     <x-boshujoho-navi></x-boshujoho-navi>
+
     <div class="bg-white">
       <h2 class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
         新規作成
       </h2>
     </div>
+
     {{--エラーメッセージ--}}
     <x-validation-errors class="mb-4 ml-10" :errors="$errors" />
     {{--投稿完了メッセージ--}}
     <x-message :message="session('message')" />
+
   </x-slot>
 
+  {{--body--}}
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="mx-4 sm:p-8">
       <form method="post" action="{{route('boshujoho.store')}}" enctype="multipart/form-data">
         @csrf
-        <!-- タイトル -->
+        <!-- タイ
+        トル -->
         <div class="md:flex items-center mt-8">
           <div class="w-full flex flex-col">
             <label for="body" class="font-semibold leading-none mt-4">件名</label>

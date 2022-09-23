@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
@@ -33,19 +34,18 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
-        $inputs = request()->validate([
-            'body' => 'required|max:1000',
-        ]);
+        // バリデーション済みデータの取得
+        $validated = $request->validated();
 
         $comment = Comment::create([
-            'body' => $inputs['body'],
+            'body' => $validated['body'],
             'user_id' => auth()->user()->id,
             'post_id' => $request->post_id
         ]);
 
-        return back();
+        return back()->with('message', 'コメントを投稿しました');
     }
 
     /**

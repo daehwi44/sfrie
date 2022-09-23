@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Community;
 use App\Models\CommunityUser;
-use App\Models\M_area;
-use App\Models\M_category;
+use App\Models\MArea;
+use App\Models\MCategory;
 use Illuminate\Http\Request;
 
 class CommunityController extends Controller
@@ -30,9 +30,9 @@ class CommunityController extends Controller
     public function create()
     {
         // areaテーブルの全データを取得する
-        $areas = M_area::all();
+        $areas = MArea::all();
         // categoryテーブルの全データを取得する
-        $categories = M_category::all();
+        $categories = MCategory::all();
         return view('community.create', compact('areas', 'categories'));
     }
 
@@ -99,9 +99,9 @@ class CommunityController extends Controller
     public function edit(Community $community)
     {
         // areaテーブルの全データを取得する
-        $areas = M_area::all();
+        $areas = MArea::all();
         // categoryテーブルの全データを取得する
-        $categories = M_category::all();
+        $categories = MCategory::all();
         return view('community.edit', compact('community', 'areas', 'categories'));
     }
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\M_area;
-use App\Models\M_category;
+use App\Models\MArea;
+use App\Models\MCategory;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -23,9 +23,9 @@ class RegisteredUserController extends Controller
     public function create()
     {
         // areaテーブルの全データを取得する
-        $areas = M_area::all();
+        $areas = MArea::all();
         // categoryテーブルの全データを取得する
-        $categories = M_category::all();
+        $categories = MCategory::all();
         return view('auth.register', compact('areas', 'categories'));
     }
 
