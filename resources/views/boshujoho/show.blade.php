@@ -45,7 +45,7 @@
 
 
             <div class="mt-2">
-              <div class="flex">
+              <div class="flex pb-2">
                 <div class="pt-2">
                   投稿者：
                 </div>

@@ -71,7 +71,7 @@ class CommunityController extends Controller
             $community->image = $name;
         }
         $community->save();
-        return redirect()->route('community.create')->with('message', '投稿を作成しました');
+        return redirect()->route('community.create')->with('message', 'コミュニティを作成しました');
     }
 
     /**
@@ -171,7 +171,7 @@ class CommunityController extends Controller
             $community->image = $name;
         }
         $community->save();
-        return redirect()->route('community.show', $community)->with('message', '投稿を更新しました');
+        return redirect()->route('community.show', $community)->with('message', 'コミュニティを更新しました');
     }
 
     /**
@@ -183,7 +183,7 @@ class CommunityController extends Controller
     public function destroy(Community $community)
     {
         $community->delete();
-        return redirect()->route('community.index')->with('message', '投稿を削除しました');
+        return redirect()->route('community.index')->with('message', 'コミュニティを削除しました');
     }
 
     public function dashboard()

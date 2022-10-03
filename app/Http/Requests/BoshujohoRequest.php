@@ -32,7 +32,7 @@ class BoshujohoRequest extends FormRequest
     {
         Log::info('Logに出力してこの関数が通っているか確認する');
         return [
-            'title' => 'required|max:10',
+            'title' => 'required|max:100',
             'm_area_id' => 'required',
             'm_category_id' => 'required',
             'content' => 'required|max:255',
@@ -44,6 +44,7 @@ class BoshujohoRequest extends FormRequest
     // エラーメッセージ設定
     public function messages()
     {
+<<<<<<< HEAD
         Log::info('Logに出力してこの関数が通っているか確認する2');
         return [
             'title.required' => 'あああああああああああああ',
@@ -53,6 +54,15 @@ class BoshujohoRequest extends FormRequest
             // 'content.required' => '学習内容を選択してください。',
             // 'body.required' => '本文は1000文字以内でお願いします。',
             // 'image.required' => 'ファイル名は1024文字までです。',
+=======
+        return [
+            'title.required' => 'タイトルは100文字以内でお願いします。',
+            'm_area_id.required' => 'エリアを選択してください。',
+            'm_category_id.required' => 'カテゴリを選択してください。',
+            'content.required' => '学習内容を選択してください。',
+            'body.required' => '本文は1000文字以内でお願いします。',
+            'image.required' => 'ファイル名は1024文字までです。',
+>>>>>>> 99e7262b5c3e481affa2b0d19d23e08a37ab65ab
         ];
     }
 }
