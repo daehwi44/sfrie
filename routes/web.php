@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BoshujohoController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\WelcomeController;
 
@@ -21,6 +22,9 @@ use App\Http\Controllers\WelcomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+//chatのルート
+Route::resource('/chat', ChatController::class);
 
 //施設情報のルート
 Route::get('shisetsu', [WelcomeController::class, 'shisetsu'])->name('shisetsu.index');

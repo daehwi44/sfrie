@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BoshujohoRequest extends FormRequest
 {
@@ -15,11 +16,11 @@ class BoshujohoRequest extends FormRequest
     public function authorize()
     {
         //ログインユーザーのみフォーム使用を許可
-        if (Auth::check()) {
+        // if (Auth::check()) {
             return true;
-        } else {
-            return false;
-        }
+        // } else {
+        //     return false;
+        // }
     }
 
     /**
@@ -29,6 +30,7 @@ class BoshujohoRequest extends FormRequest
      */
     public function rules()
     {
+        Log::info('Logに出力してこの関数が通っているか確認する');
         return [
             'title' => 'required|max:10',
             'm_area_id' => 'required',
@@ -39,16 +41,18 @@ class BoshujohoRequest extends FormRequest
         ];
     }
 
-    // // エラーメッセージ設定
-    // public function messages()
-    // {
-    //     return [
-    //         'title.required' => 'タイトルは10文字以内でお願いします。',
-    //         'm_area_id.required' => 'エリアを選択してください。',
-    //         'm_category_id.required' => 'カテゴリを選択してください。',
-    //         'content.required' => '学習内容を選択してください。',
-    //         'body.required' => '本文は1000文字以内でお願いします。',
-    //         'image.required' => 'ファイル名は1024文字までです。',
-    //     ];
-    // }
+    // エラーメッセージ設定
+    public function messages()
+    {
+        Log::info('Logに出力してこの関数が通っているか確認する2');
+        return [
+            'title.required' => 'あああああああああああああ',
+            'title.max' => 'いいいいいいいいいいいいいい',
+            // 'm_area_id.required' => 'エリアを選択してください。',
+            // 'm_category_id.required' => 'カテゴリを選択してください。',
+            // 'content.required' => '学習内容を選択してください。',
+            // 'body.required' => '本文は1000文字以内でお願いします。',
+            // 'image.required' => 'ファイル名は1024文字までです。',
+        ];
+    }
 }

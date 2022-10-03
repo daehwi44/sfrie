@@ -47,6 +47,8 @@ class BoshujohoController extends Controller
         // バリデーション済みデータの取得
         $validated = $request->validated();
 
+        dd($validated);
+
         //インスタンス化
         $boshujoho = new Boshujoho();
 
@@ -111,7 +113,7 @@ class BoshujohoController extends Controller
         $boshujoho->content = $validated['content'];
         $boshujoho->body = $validated['body'];
         $boshujoho->user_id = auth()->user()->id;
-        
+
         if (request('image')) {
             $original = $request->file('image')->getClientOriginalName();
             // 日時追加

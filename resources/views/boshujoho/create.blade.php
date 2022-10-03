@@ -16,13 +16,17 @@
 
   </x-slot>
 
+  @foreach ($errors->all() as $error)
+  <li>{{$error}}</li>
+  @endforeach
+
+
   {{--body--}}
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="mx-4 sm:p-8">
       <form method="post" action="{{route('boshujoho.store')}}" enctype="multipart/form-data">
         @csrf
-        <!-- タイ
-        トル -->
+        <!-- タイトル -->
         <div class="md:flex items-center mt-8">
           <div class="w-full flex flex-col">
             <label for="body" class="font-semibold leading-none mt-4">件名</label>
