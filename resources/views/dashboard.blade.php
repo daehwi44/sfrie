@@ -1,108 +1,137 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="bg-white h-14">
-            <h2 class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
-                <span class="text-4xl">Sfrie</span>-学習仲間を見つける掲示板-
+        <div class="bg-white py-2">
+            <h2 class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-semibold text-base text-gray-800 leading-tight text-right">
+                <span class="text-2xl mr-2">Sfrie</span>-学習仲間を見つけるためのSNS-
             </h2>
         </div>
     </x-slot>
 
     {{--メインビジュアル--}}
     <img src="{{asset('images/main.png')}}" class="w-full">
-    {{--背景--}}
-    <div class="bg-zinc-200 pb-14 bg-right bg-cover">
-        {{--メインコンテンツ--}}
-        <div class="mx-4 sm:p-2">
-            <div class="mt-4">
 
-                {{--募集情報コンテナ--}}
-                <div class="bg-white max-w-7xl mx-auto rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+    <div class="flex flex-wrap">
+        {{--左側のカラム--}}
+        <div class="w-full md:w-1/5 p-1">
+            <div class="bg-white max-w-7xl rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500 h-full">
+                <section class="flex flex-col items-center">
+                    <h2 class="page-title flex items-center justify-center space-x-1">
+                        <i class="size20 athlete"></i>
+                        <span>カテゴリ一覧</span>
+                    </h2>
+                    <div id="more-text" class="max-h-296 overflow-hidden">
+                        <ul class="text-count description">
+                            <li><a href="/soccer">語学</a></li>
+                            <li><a href="/futsal">会計</a></li>
+                            <li><a href="/baseball">野球</a></li>
+                            <li><a href="/softball">ソフトボール</a></li>
+                            <li><a href="/golf">ゴルフ</a></li>
+                            <li><a href="/tennis">テニス</a></li>
+                            <li><a href="/padel">パデル</a></li>
+                            <li><a href="/basketball">バスケットボール</a></li>
+                            <li><a href="/rugby">ラグビー</a></li>
+                            <li><a href="/volleyball">バレーボール</a></li>
+                            <li><a href="/amefoot">アメリカンフットボール</a></li>
+                            <li><a href="/badminton">バドミントン</a></li>
+                            <li><a href="/handball">ハンドボール</a></li>
+                        </ul>
+                    </div>
+                    <div class="text-btn">
+                        <a href="#" class="more-btn">もっと見る</a>
+                    </div>
+            </div>
+            </section>
 
-                    <div class="mt-4">
-                        <div class="flex pb-1 font-extrabold text-2xl">
-                            ◆学習仲間募集情報
+        </div>
+
+        {{--中央のカラム--}}
+        <div class="w-full md:w-3/5 p-1">
+
+            {{--募集情報コンテナ--}}
+            <div class="bg-white max-w-7xl rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+
+                <div class="mt-4">
+                    <div class="flex pb-1 font-extrabold text-2xl">
+                        ◆学習仲間募集情報
+                    </div>
+                    @foreach ($boshujohos as $boshujoho)
+                    <div class="mt-4 mx-4 sm:p-2">
+                        {{-- アバターと名前 --}}
+                        <div class="flex pb-1">
+                            {{-- アバター --}}
+                            <div>
+                                <img class="rounded-full w-12 h-12 object-cover" src="{{asset('storage/avatar/'.($boshujoho->user->avatar??'user_default.jpg'))}}">
+                            </div>
+                            {{-- name --}}
+                            <div class="ml-2 ">
+                                <h1 class="text-lg text-gray-700 font-semibold float-left pt-3">
+                                    {{ $boshujoho->user->name??'削除されたユーザ' }}
+                                </h1>
+                            </div>
                         </div>
-                        @foreach ($boshujohos as $boshujoho)
-                        <div class="mt-4 mx-4 sm:p-2">
-                            {{-- アバターと名前 --}}
-                            <div class="flex pb-1">
-                                {{-- アバター --}}
-                                <div>
-                                    <img class="rounded-full w-12 h-12 object-cover" src="{{asset('storage/avatar/'.($boshujoho->user->avatar??'user_default.jpg'))}}">
-                                </div>
-                                {{-- name --}}
-                                <div class="ml-2 ">
-                                    <h1 class="text-lg text-gray-700 font-semibold float-left pt-3">
-                                        {{ $boshujoho->user->name??'削除されたユーザ' }}
-                                    </h1>
-                                </div>
-                            </div>
-                            <hr class="w-full">
-                            {{-- title --}}
-                            <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
-                                <a href="{{route('boshujoho.show', $boshujoho)}}">{{ $boshujoho->title }}</a>
-                            </div>
-                            <hr class="w-full">
-                            {{--本文(長い場合"..."表示)--}}
-                            <p class="whitespace-pre-wrap mt-4 text-gray-600 py-4">{{Str::limit($boshujoho->body, 500, '...')}}</p>
-                            <div class="text-sm font-semibold flex flex-row-reverse">
-                                <p>{{$boshujoho->created_at->diffForHumans()}}</p>
-                            </div>
-                            {{--投稿間の区切り線（太めの線）--}}
-                            <hr class="w-full bg-gray-600 h-0.5">
+                        <hr class="w-full">
+                        {{-- title --}}
+                        <div class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-3 pb-3">
+                            <a href="{{route('boshujoho.show', $boshujoho)}}">{{ $boshujoho->title }}</a>
                         </div>
+                        <hr class="w-full">
+                        {{--本文(長い場合"..."表示)--}}
+                        <p class="whitespace-pre-wrap mt-4 text-gray-600 py-4">{{Str::limit($boshujoho->body, 500, '...')}}</p>
+                        <div class="text-sm font-semibold flex flex-row-reverse">
+                            <p>{{$boshujoho->created_at->diffForHumans()}}</p>
+                        </div>
+                        {{--投稿間の区切り線（太めの線）--}}
+                        <hr class="w-full bg-gray-600 h-0.5">
+                    </div>
+                    @endforeach
+                </div>
+                <div class="flex justify-center">
+                    <div>
+                        <a href="{{ route('boshujoho.index') }}">
+                            もっとみる
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {{--学習コミュニティ一覧コンテナ--}}
+            <div class="bg-white mt-10 max-w-7xl mx-auto rounded-2xl px-4 sm:px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+                <div class="mt-4">
+                    <div class="flex pb-1 font-extrabold text-2xl">
+                        ◆学習コミュニティ一覧
+                    </div>
+                    <div class="grid gap-8 mt-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                        {{-- コミュニティ繰り返し表示 --}}
+                        @foreach ($communities as $community)
+                        <a href="{{route('post.index',['community_id' => $community->id])}}" class="flex flex-col items-center p-8 transition-colors duration-300 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-blue-600 dark:border-gray-700 dark:hover:border-transparent">
+                            {{-- コミュニティ画像 --}}
+                            <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="{{asset('storage/images/'.($community->image??'user_default.jpg'))}}">
+                            {{-- コミュニティ名 --}}
+                            <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">{{ $community->name }}</h1>
+                            {{-- エリア --}}
+                            <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">エリア：{{ $community->area->area }} </p>
+                            {{-- カテゴリー --}}
+                            <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">カテゴリー：{{ $community->category->category }}</p>
+                            {{-- 学習内容 --}}
+                            <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">学習内容：{{ $community->content }}</p>
+                        </a>
                         @endforeach
                     </div>
-                    <div class="flex justify-center">
-                        <div>
-                            <a href="{{ route('boshujoho.index') }}">
-                                もっとみる
-                            </a>
-                        </div>
+                </div>
+                <div class="flex justify-center">
+                    <div>
+                        <a href="{{ route('community.index') }}">
+                            もっとみる
+                        </a>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                {{--学習コミュニティ一覧コンテナ--}}
-                <div class="bg-white mt-10 max-w-7xl mx-auto rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
-
-                    <div class="mt-4">
-                        <div class="flex pb-1 font-extrabold text-2xl">
-                            ◆学習コミュニティ一覧
-                        </div>
-                        <div class="grid grid-cols-4 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-4">
-
-                            {{-- コミュニティ繰り返し表示 --}}
-                            @foreach ($communities as $community)
-                            <a href="{{route('post.index',['community_id' => $community->id])}}" class=" flex flex-col items-center p-8 transition-colors duration-300 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-blue-600 dark:border-gray-700 dark:hover:border-transparent">
-
-                                {{-- コミュニティ画像 --}}
-                                <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="{{asset('storage/images/'.($community->image??'user_default.jpg'))}}">
-
-                                {{-- コミュニティ名 --}}
-                                <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">{{ $community->name }}</h1>
-
-                                {{-- エリア --}}
-                                <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">エリア：{{ $community->area->area }} </p>
-
-                                {{-- カテゴリー --}}
-                                <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">カテゴリー：{{ $community->category->category }}</p>
-
-                                {{-- 学習内容 --}}
-                                <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">学習内容：{{ $community->content }}</p>
-
-                            </a>
-                            @endforeach
-
-                        </div>
-                    </div>
-                    <div class="flex justify-center">
-                        <div>
-                            <a href="{{ route('community.index') }}">
-                                もっとみる
-                            </a>
-                        </div>
-                    </div>
-                </div>
+        {{--右側のカラム--}}
+        <div class="w-full md:w-1/5 p-1">
+            <div class="bg-white max-w-7xl rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500 h-full">
+                <h1>あ</h1>
             </div>
         </div>
     </div>

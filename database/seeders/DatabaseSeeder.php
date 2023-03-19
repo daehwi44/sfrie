@@ -8,8 +8,8 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     private const SEEDERS = [
-        M_areaSeeder::class,
-        M_categorySeeder::class,
+        MAreaSeeder::class,
+        MCategorySeeder::class,
     ];
 
 

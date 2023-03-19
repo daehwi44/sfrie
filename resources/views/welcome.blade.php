@@ -1,10 +1,5 @@
 <x-guest-layout class="bg-gray-100">
     <x-slot name="header">
-        <div class="h-14">
-            <h2 class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
-                <span class="text-4xl">Sfrie</span>-学習仲間を見つける掲示板-
-            </h2>
-        </div>
     </x-slot>
 
     {{--メインビジュアル--}}
