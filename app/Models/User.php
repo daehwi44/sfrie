@@ -12,6 +12,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    //-------------------------------------------------------------
+    // リレーション
+
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -32,20 +35,17 @@ class User extends Authenticatable
         return $this->hasMany(Community::class);
     }
 
-    /**
-     * Userの都道府県の取得(MAreaモデルとのリレーション)
-     */
-    public function area()
+
+    // Userの都道府県の取得(MAreaモデルとのリレーション)
+    public function mArea()
     {
-        return $this->belongsTo(MArea::class, "m_area_id");
+        return $this->belongsTo(MArea::class);
     }
 
-    /**
-     * Userのカテゴリーの取得(MCategoryモデルとのリレーション)
-     */
-    public function category()
+    // Userのカテゴリーの取得(MCategoryモデルとのリレーション)
+    public function mCategory()
     {
-        return $this->belongsTo(MCategory::class, "m_category_id");
+        return $this->belongsTo(MCategory::class);
     }
 
     // community_userの多対多リレーション
@@ -54,6 +54,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Community::class);
     }
 
+    // -------------------------------------------------------------------
     /**
      * The attributes that are mass assignable.
      *
@@ -63,6 +64,7 @@ class User extends Authenticatable
         'name',
         'm_area_id',
         'm_category_id',
+        'intro',
         'avatar',
         'email',
         'password',

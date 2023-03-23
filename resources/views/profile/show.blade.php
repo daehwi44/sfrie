@@ -1,54 +1,67 @@
 <x-app-layout>
-  <x-slot name="header"></x-slot>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('プロフィール') }}
+        </h2>
+    </x-slot>
 
-  <div class="font-sans text-gray-900 antialiased">
-
-    <div class="w-full md:w-1/2 mx-auto p-6">
-
-      <div class="w-3/4 mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mx-4 sm:p-2">
-          <div class="px-10 mt-4">
-
-            <div class="bg-white w-full  rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
-              <div class="mt-4 ">
-                {{--ユーザーイメージ写真--}}
-                <div>
-                  <img class="mx-auto m-2 rounded-full w-48 h-48 object-cover" src="{{asset('storage/avatar/'.($user->avatar??'user_default.jpg'))}}">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="flex flex-wrap">
+                        <div class="w-full md:w-1/3">
+                            <div class="text-center">
+                                <img src="{{ asset('storage/avatar/' . $user->avatar) }}"
+                                    class="w-48 h-48 rounded-full mx-auto">
+                            </div>
+                            <hr class="my-4">
+                            <div class="text-center">
+                                <h4 class="text-xl font-bold">{{ $user->name }}</h4>
+                                <p class="text-gray-600">{{ $user->email }}</p>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <div class="flex flex-wrap">
+                                <div class="w-full md:w-1/2 p-4">
+                                    <div class="bg-gray-100 rounded-lg p-4">
+                                        <p class="text-lg font-bold">{{ __('エリア') }}</p>
+                                        @if ($user->mArea)
+                                            <p>{{ $user->mArea->area }}</p>
+                                        @else
+                                            <p>エリア未設定</p>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 p-4">
+                                    <div class="bg-gray-100 rounded-lg p-4">
+                                        <p class="text-lg font-bold">{{ __('カテゴリー') }}</p>
+                                        @if ($user->mCategory)
+                                            <p>{{ $user->mCategory->category }}</p>
+                                        @else
+                                            <p>カテゴリー未設定</p>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="w-full p-4">
+                                    <div class="bg-gray-100 rounded-lg p-4">
+                                        <p class="text-lg font-bold">{{ __('自己紹介') }}</p>
+                                        <div class="mt-4">
+                                            @if ($user->intro)
+                                                <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                                                    <p class="text-gray-700">{!! nl2br(e($user->intro)) !!}</p>
+                                                </div>
+                                            @else
+                                                <p>自己紹介未設定</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                {{-- ユーザー名 --}}
-                <div class="text-2xl text-gray-700 font-semibold  float-left pt-3 pb-3">
-                  {{ $user->name }}
-                </div>
-
-
-                <hr class="w-full">
-              </div>
-              <div>
-                {{-- エリア・カテゴリー・学習内容 --}}
-                <div class="text-gray-700 pt-3 pb-3">
-                  <p><br>エリア：{{ $user->area->area }} <br><br>興味のあるカテゴリー：{{ $user->category->category }}<br><br></p>
-                </div>
-                <hr class="w-full">
-                {{--本文--}}
-                <p class="whitespace-pre-wrap mt-4 text-gray-600 py-4">山口県在住です。<br>大学では英米文学を学んでおり、英語が得意です。<br>最近は、TOEICの受験に向けて日々勉強しております。<br>大学3年生のときには、英語技能検定で準1級を取得することができました。<br>この経験を活かし皆様に英語を教えてあげたりできたらと思っています。</p>
-
-                <hr class="w-full mb-2">
-
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-
-
-
-
-
-
-
-
-
-
     </div>
-  </div>
 </x-app-layout>

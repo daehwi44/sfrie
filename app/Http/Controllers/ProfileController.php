@@ -22,6 +22,7 @@ class ProfileController extends Controller
 
     public function show(User $user)
     {
+        $user->load('mArea', 'mCategory');
         return view('profile.show', compact('user'));
     }
 
@@ -47,11 +48,13 @@ class ProfileController extends Controller
             'name' => 'required|max:255',
             'm_area_id' => 'required',
             'm_category_id' => 'required',
+            'intro' => 'nullable|max:255',
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'avatar' => 'image|max:1024',
             'password' => 'nullable|max:255|min:8',
             'password_confirmation' => 'nullable|same:password'
         ]);
+
 
         //パスワードの設定
         if (!isset($inputs['password'])) {
@@ -73,7 +76,8 @@ class ProfileController extends Controller
             $inputs['avatar'] = $avatar;
         }
 
-        $user->update($inputs);
+        $user->fill($inputs)->save();
+
         return back()->with('message', '情報を更新しました');
     }
 }

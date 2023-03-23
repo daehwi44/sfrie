@@ -10,6 +10,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BoshujohoController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 
 /*
@@ -85,6 +86,9 @@ Route::middleware(['can:admin'])->group(function () {
     Route::patch('roles/{user}/attach', [RoleController::class, 'attach'])->name('role.attach');
     Route::patch('roles/{user}/detach', [RoleController::class, 'detach'])->name('role.detach');
 });
+
+// ユーザー一覧ページ
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 
 //welcomeルーティング
