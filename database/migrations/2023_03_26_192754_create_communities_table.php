@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('communities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('m_area_id');
-            $table->foreignId('m_category_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('m_area_id')->constrained('m_areas');
+            $table->foreignId('m_category_id')->constrained('m_categories');
+            $table->foreignId('m_learning_content_id')->constrained('m_learning_contents');
             $table->string('name');
-            $table->text('image')->nullable();
-            $table->string('content');
+            $table->string('image');
+            $table->text('content');
             $table->text('about');
             $table->timestamps();
         });
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('communities');   
+        Schema::dropIfExists('communities');
     }
 };

@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('user_learning_contents', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('body');
-            $table->text('image')->nullable();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('learning_content_id')->constrained('m_learning_contents');
+            $table->integer('level')->unsigned();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('user_learning_contents');
     }
 };

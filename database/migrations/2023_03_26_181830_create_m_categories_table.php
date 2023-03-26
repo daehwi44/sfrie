@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->foreignId('community_id')->after('user_id');
+        Schema::create('m_categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('category');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('community_id');
-        });
+        Schema::dropIfExists('m_categories');
     }
 };

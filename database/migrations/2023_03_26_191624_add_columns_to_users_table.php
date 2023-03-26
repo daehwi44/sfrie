@@ -14,7 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('m_area_id')->after('name');
+            $table->unsignedBigInteger('m_area_id')->after('id');
+            $table->string('avatar')->nullable()->after('name');
+            $table->string('gender')->nullable()->after('avatar');
+            $table->integer('age')->nullable()->after('gender');
+            $table->text('intro')->nullable()->after('age');
         });
     }
 
@@ -26,7 +30,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('m_area_id');
+            $table->dropColumn(['m_area_id', 'avatar', 'gender', 'age', 'intro']);
         });
     }
 };

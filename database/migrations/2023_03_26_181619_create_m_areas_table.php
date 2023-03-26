@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('community_user', function (Blueprint $table) {
+        Schema::create('m_areas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('community_id')->references('id')->on('communities')->onDelete('cascade');
-            $table->unique(['community_id', 'user_id']);
+            $table->string('area'); // ユーザーが住んでいる都道府県
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('community_user');
+        Schema::dropIfExists('m_areas');
     }
 };
