@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('m_learning_contents', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
-            $table->string('content');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('community_id')->constrained('communities');
+            $table->string('title');
+            $table->text('body');
+            $table->string('image')->nullable();
             $table->timestamps();
-
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('m_categories')
-                ->onDelete('cascade');
         });
     }
 
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_learning_contents');
+        Schema::dropIfExists('posts');
     }
 };

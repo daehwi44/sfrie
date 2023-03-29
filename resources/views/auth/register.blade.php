@@ -12,75 +12,137 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-
-
         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
 
             <!-- Name -->
             <div>
-                <x-label for="name" :value="__('Name')" />
+                <x-label for="name" :value="__('ユーザー名')" />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
+                    autofocus />
             </div>
 
-            <!-- area -->
+            <!-- Gender -->
             <div class="mt-4">
-                <x-label for="m_area_id" :value="__('都道府県')" />
-                <select name="m_area_id" required>
-                    <option disabled style='display:none;' @if (empty($user->m_area_id)) selected @endif>選択してください</option>
-                    @foreach($areas as $area)
-                    <option value="{{ $area->id }}">{{ $area->area }}</option>
+                <x-label for="gender" :value="__('性別')" />
+                <div class="flex items-center mt-2">
+                    <input id="gender_male" type="radio"
+                        class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" name="gender"
+                        value="男性">
+                    <label for="gender_male" class="ml-2 block text-sm leading-5 text-gray-700">
+                        男性
+                    </label>
+                </div>
+                <div class="flex items-center mt-2">
+                    <input id="gender_female" type="radio"
+                        class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" name="gender"
+                        value="女性">
+                    <label for="gender_female" class="ml-2 block text-sm leading-5 text-gray-700">
+                        女性
+                    </label>
+                </div>
+            </div>
+
+            <!-- Birth -->
+            <div class="mt-4">
+                <x-label for="birth" :value="__('生年月日')" />
+                <x-input id="birth" class="block mt-1 w-full" type="date" name="birth" :value="old('birth')"
+                    required />
+            </div>
+
+            <!-- Area -->
+            <div class="mt-4">
+                <label for="m_area_id" class="block font-medium text-sm text-gray-700">住んでいるエリア（都道府県）</label>
+                <select id="m_area_id" name="m_area_id" required
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option disabled style='display:none;' @if (empty($user->m_area_id)) selected @endif>選択してください
+                    </option>
+                    @foreach ($areas as $area)
+                        <option value="{{ $area->id }}">{{ $area->area }}</option>
                     @endforeach
                 </select>
             </div>
 
-            <!-- category -->
-            <div class="mt-4">
-                <x-label for="m_category_id" :value="__('カテゴリー')" />
-                <select name="m_category_id" required>
-                    <option disabled style='display:none;' @if (empty($user->m_category_id)) selected @endif>選択してください</option>
-                    @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->category }}</option>
+            <!-- Category -->
+            <div>
+                <label for="category_id" class="block font-medium text-sm text-gray-700 mt-3">学習カテゴリー</label>
+                <select id="category_id" name="m_category_id" required
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option disabled style='display:none;' @if (empty($user->m_area_id)) selected @endif>選択してください
+                    </option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->category }}</option>
                     @endforeach
                 </select>
             </div>
 
-            <!-- Email Address -->
+            <!-- Content -->
             <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="content" :value="__('興味のある学習内容')" />
+                <x-input id="content" class="block mt-1 w-full" type="text" name="content" :value="old('content')"
+                    required />
+            </div>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            <!-- Level -->
+            <div class="mt-4">
+                <x-label for="level" :value="__('学習レベル')" />
+                <select id="level" name="level" required
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option disabled style='display:none;' selected>選択してください</option>
+                    <option value="1">★☆☆☆☆</option>
+                    <option value="2">★★☆☆☆</option>
+                    <option value="3">★★★☆☆</option>
+                    <option value="4">★★★★☆</option>
+                    <option value="5">★★★★★</option>
+                </select>
+            </div>
+
+            <!-- Intro -->
+            <div class="mt-4">
+                <x-label for="intro" :value="__('自己紹介文')" />
+                <textarea id="intro" name="intro" class="block mt-1 w-full rounded-none" rows="4">{{ old('intro') }}</textarea>
             </div>
 
             <!-- Avatar -->
             <div class="mt-4">
                 <x-label for="avatar" :value="__('プロフィール画像（任意・1MBまで）')" />
 
-                <x-input id="avatar" class="block mt-1 w-full rounded-none" type="file" name="avatar" :value="old('avatar')" />
+                <x-input id="avatar" class="block mt-1 w-full rounded-none" type="file" name="avatar"
+                    :value="old('avatar')" />
+            </div>
+
+            <!-- Email Address -->
+            <div class="mt-4">
+                <x-label for="email" :value="__('メールアドレス')" />
+
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+                    required />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <x-label for="password" :value="__('パスワード')" />
 
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                    autocomplete="new-password" />
             </div>
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-label for="password_confirmation" :value="__('パスワード確認用')" />
 
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                    name="password_confirmation" required />
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                    {{ __('既に登録済みの方はこちら') }}
                 </a>
 
                 <x-button class="ml-4">
-                    {{ __('Register') }}
+                    {{ __('登録する') }}
                 </x-button>
             </div>
         </form>

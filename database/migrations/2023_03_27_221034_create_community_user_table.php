@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_categories', function (Blueprint $table) {
+        Schema::create('community_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained('m_categories')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('community_id')->constrained('communities');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_categories');
+        Schema::dropIfExists('community_user');
     }
 };

@@ -9,8 +9,7 @@ class DatabaseSeeder extends Seeder
 {
     private const SEEDERS = [
         MAreaSeeder::class,
-        MCategorySeeder::class,
-        MLearningContentSeeder::class
+        MCategorySeeder::class
     ];
 
 

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Content;
 use App\Models\MArea;
 use App\Models\MCategory;
+use App\Models\MLearningContent;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -40,9 +42,14 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'm_area_id' => 'required|exists:m_areas,id',
+            'm_category_id' => 'required|exists:m_categories,id',
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'avatar' => ['image', 'max:1024'],
+            'gender' => 'required|in:男性,女性',
+            'birth' => 'required|date',
+            'intro' => 'nullable|string|max:1000',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -52,7 +59,12 @@ class RegisteredUserController extends Controller
             'm_area_id' => $request->m_area_id,
             'm_category_id' => $request->m_category_id,
             'email' => $request->email,
+            'gender' => $request->gender,
+            'birth' => $request->birth,
+            'intro' => $request->intro,
             'password' => Hash::make($request->password),
+            'content' => 'required|string|max:255',
+            'level' => 'required|integer|min:1|max:5',
         ];
 
         //avatarの保存
@@ -67,6 +79,13 @@ class RegisteredUserController extends Controller
         $user = User::create($attr);
 
         event(new Registered($user));
+
+        // contentsテーブルのデータ
+        $content = new Content();
+        $content->user_id = $user->id;
+        $content->content = $request->content;
+        $content->level = $request->level;
+        $content->save();
 
         Auth::login($user);
 

@@ -14,11 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('m_area_id')->after('id');
-            $table->string('avatar')->nullable()->after('name');
-            $table->string('gender')->nullable()->after('avatar');
-            $table->date('birth')->nullable()->after('gender');
-            $table->text('intro')->nullable()->after('birth');
+            $table->unsignedBigInteger('m_category_id')->nullable()->after('m_area_id');
+            $table->foreign('m_category_id')->references('id')->on('m_categories')->onDelete('cascade');
         });
     }
 
@@ -30,7 +27,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['m_area_id', 'avatar', 'gender', 'birth', 'intro']);
+            $table->dropForeign(['m_category_id']);
+            $table->dropColumn('m_category_id');
         });
     }
 };

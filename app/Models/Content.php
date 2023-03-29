@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MLearningContent extends Model
+class Content extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'name'
+        'user_id',
+        'content',
+        'level',
     ];
 
     public function user()

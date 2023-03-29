@@ -64,6 +64,8 @@ class User extends Authenticatable
         'name',
         'm_area_id',
         'm_category_id',
+        'gender',
+        'birth',
         'intro',
         'avatar',
         'email',
