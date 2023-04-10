@@ -36,7 +36,7 @@ return [
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-                'host' => env('PUSHER_HOST', 'api-'.env('PUSHER_APP_CLUSTER', 'mt1').'.pusher.com') ?: 'api-'.env('PUSHER_APP_CLUSTER', 'mt1').'.pusher.com',
+                'host' => env('PUSHER_HOST', 'api-' . env('PUSHER_APP_CLUSTER', 'mt1') . '.pusher.com') ?: 'api-' . env('PUSHER_APP_CLUSTER', 'mt1') . '.pusher.com',
                 'port' => env('PUSHER_PORT', 443),
                 'scheme' => env('PUSHER_SCHEME', 'https'),
                 'encrypted' => true,
@@ -65,6 +65,17 @@ return [
             'driver' => 'null',
         ],
 
+    ],
+
+    'pusher' => [
+        'driver' => 'pusher',
+        'key' => env('4a7f0c23719f1b6ca750'),
+        'secret' => env('6d6dca425dd23a90c311'),
+        'app_id' => env('1471042'),
+        'options' => [
+            'cluster' => env('ap3'),
+            'encrypted' => true,
+        ],
     ],
 
 ];

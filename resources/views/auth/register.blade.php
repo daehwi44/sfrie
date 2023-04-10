@@ -29,7 +29,7 @@
                 <div class="flex items-center mt-2">
                     <input id="gender_male" type="radio"
                         class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" name="gender"
-                        value="男性">
+                        value="男性" {{ old('gender') === '男性' ? 'checked' : '' }}>
                     <label for="gender_male" class="ml-2 block text-sm leading-5 text-gray-700">
                         男性
                     </label>
@@ -37,7 +37,7 @@
                 <div class="flex items-center mt-2">
                     <input id="gender_female" type="radio"
                         class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" name="gender"
-                        value="女性">
+                        value="女性" {{ old('gender') === '女性' ? 'checked' : '' }}>
                     <label for="gender_female" class="ml-2 block text-sm leading-5 text-gray-700">
                         女性
                     </label>
@@ -56,23 +56,26 @@
                 <label for="m_area_id" class="block font-medium text-sm text-gray-700">住んでいるエリア（都道府県）</label>
                 <select id="m_area_id" name="m_area_id" required
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option disabled style='display:none;' @if (empty($user->m_area_id)) selected @endif>選択してください
+                    <option disabled style='display:none;' {{ old('m_area_id') === null ? 'selected' : '' }}>選択してください
                     </option>
                     @foreach ($areas as $area)
-                        <option value="{{ $area->id }}">{{ $area->area }}</option>
+                        <option value="{{ $area->id }}" {{ old('m_area_id') == $area->id ? 'selected' : '' }}>
+                            {{ $area->area }}</option>
                     @endforeach
                 </select>
             </div>
 
             <!-- Category -->
-            <div>
+            <div class="mt-4">
                 <label for="category_id" class="block font-medium text-sm text-gray-700 mt-3">学習カテゴリー</label>
                 <select id="category_id" name="m_category_id" required
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option disabled style='display:none;' @if (empty($user->m_area_id)) selected @endif>選択してください
-                    </option>
+                    <option disabled style='display:none;' {{ old('m_category_id') === null ? 'selected' : '' }}>
+                        選択してください</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->category }}</option>
+                        <option value="{{ $category->id }}"
+                            {{ old('m_category_id') == $category->id ? 'selected' : '' }}>{{ $category->category }}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -89,12 +92,13 @@
                 <x-label for="level" :value="__('学習レベル')" />
                 <select id="level" name="level" required
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option disabled style='display:none;' selected>選択してください</option>
-                    <option value="1">★☆☆☆☆</option>
-                    <option value="2">★★☆☆☆</option>
-                    <option value="3">★★★☆☆</option>
-                    <option value="4">★★★★☆</option>
-                    <option value="5">★★★★★</option>
+                    <option disabled style='display:none;' {{ old('level') === null ? 'selected' : '' }}>選択してください
+                    </option>
+                    <option value="1" {{ old('level') == 1 ? 'selected' : '' }}>★☆☆☆☆</option>
+                    <option value="2" {{ old('level') == 2 ? 'selected' : '' }}>★★☆☆☆</option>
+                    <option value="3" {{ old('level') == 3 ? 'selected' : '' }}>★★★☆☆</option>
+                    <option value="4" {{ old('level') == 4 ? 'selected' : '' }}>★★★★☆</option>
+                    <option value="5" {{ old('level') == 5 ? 'selected' : '' }}>★★★★★</option>
                 </select>
             </div>
 
@@ -107,7 +111,6 @@
             <!-- Avatar -->
             <div class="mt-4">
                 <x-label for="avatar" :value="__('プロフィール画像（任意・1MBまで）')" />
-
                 <x-input id="avatar" class="block mt-1 w-full rounded-none" type="file" name="avatar"
                     :value="old('avatar')" />
             </div>
@@ -115,7 +118,6 @@
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('メールアドレス')" />
-
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                     required />
             </div>

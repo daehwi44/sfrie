@@ -15,11 +15,36 @@ class BoshujohoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $boshujohos = Boshujoho::with('area', 'category')->orderBy('created_at', 'desc')->get();
+        // MCategoryテーブルの全てのデータを取得し、$categoriesに代入します。
+        $categories = MCategory::all();
+        // MAreaテーブルの全てのデータを取得し、$areasに代入します。
+        $areas = MArea::all();
+        // Boshujohoテーブルのデータを取得するためのクエリビルダー(PHPコードでSQLクエリを構築する機能)を作成します。
+        $query = Boshujoho::query();
+
+        // 検索条件
+        if ($request->filled('category')) {
+            // $requestにcategoryが含まれている場合、$requestのcategoryの値に基づいて、クエリにwhere条件を追加
+            $query->where('m_category_id', $request->category);
+        }
+        if ($request->filled('content')) {
+            // $requestにcontentが含まれている場合、$requestのcontentの値に基づいて、クエリにwhere条件を追加
+            $query->where('content', 'LIKE', '%' . $request->content . '%');
+        }
+        if ($request->filled('area')) {
+            // $requestにareaが含まれている場合、$requestのareaの値に基づいて、クエリにwhere条件を追加
+            $query->where('m_area_id', $request->area);
+        }
+
+        // クエリを実行して、結果を$boshujohosに代入します。
+        $boshujohos = $query->orderBy('created_at', 'desc')->get();
+
+        // ログインユーザー取得
         $user = auth()->user();
-        return view('boshujoho.index', compact('boshujohos', 'user'));
+
+        return view('boshujoho.index', compact('boshujohos', 'user', 'categories', 'areas', 'request'));
     }
 
     /**
@@ -46,8 +71,6 @@ class BoshujohoController extends Controller
     {
         // バリデーション済みデータの取得
         $validated = $request->validated();
-
-        dd($validated);
 
         //インスタンス化
         $boshujoho = new Boshujoho();

@@ -12,7 +12,4 @@ class CommunityUser extends Model
     // 参照させたいSQLのテーブル名を指定してあげる
     // 公式ドキュメントによると、自分で命名したデータベースをLaravelに参照させたいときは、テーブル名をモデルファイル内で指定しなければいけない
     protected $table = 'community_user';
-
-
-
 }

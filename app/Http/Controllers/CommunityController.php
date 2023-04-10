@@ -10,23 +10,42 @@ use Illuminate\Http\Request;
 
 class CommunityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $communities = Community::with('area', 'category')->orderBy('created_at', 'desc')->get();
+        // MCategoryテーブルの全てのデータを取得し、$categoriesに代入します。
+        $categories = MCategory::all();
+        // MAreaテーブルの全てのデータを取得し、$areasに代入します。
+        $areas = MArea::all();
+
+        // Communityテーブルのデータを取得するためのクエリビルダー(PHPコードでSQLクエリを構築する機能)を作成します。
+        $query = Community::query();
+
+        // 検索条件
+        if ($request->filled('category')) {
+            // $requestにcategoryが含まれている場合、$requestのcategoryの値に基づいて、クエリにwhere条件を追加
+            $query->where('m_category_id', $request->category);
+        }
+        if ($request->filled('content')) {
+            // $requestにcontentが含まれている場合、$requestのcontentの値に基づいて、クエリにwhere条件を追加
+            $query->where('content', 'LIKE', '%' . $request->content . '%');
+        }
+        if ($request->filled('area')) {
+            // $requestにareaが含まれている場合、$requestのareaの値に基づいて、クエリにwhere条件を追加
+            $query->where('m_area_id', $request->area);
+        }
+
+        // is_eventが0の場合のみ、クエリにwhere条件を追加
+        $query->where('is_event', 0);
+
+        // クエリを実行して、結果を$communitiesに代入します。
+        $communities = $query->orderBy('created_at', 'desc')->get();
+
+        // ログインユーザー取得
         $user = auth()->user();
-        return view('community.index', compact('communities', 'user'));
+
+        return view('community.index', compact('communities', 'user', 'categories', 'areas', 'request'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         // areaテーブルの全データを取得する
@@ -36,12 +55,7 @@ class CommunityController extends Controller
         return view('community.create', compact('areas', 'categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         // バリデーション
@@ -52,6 +66,7 @@ class CommunityController extends Controller
             'm_category_id' => 'required',
             'content' => 'required|max:255',
             'about' => 'required|max:1000',
+            'event_date' => 'nullable|date',
         ]);
 
         //インスタンス化
@@ -70,16 +85,17 @@ class CommunityController extends Controller
             request()->file('image')->move('storage/images', $name);
             $community->image = $name;
         }
+
+        // is_eventカラムの値を設定
+        $community->is_event = 0;
+
+        // event_dateカラムの値を設定
+        $community->event_date;
+
         $community->save();
         return redirect()->route('community.create')->with('message', 'コミュニティを作成しました');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Community  $community
-     * @return \Illuminate\Http\Response
-     */
     public function show($community_id)
     {
         $community = Community::find($community_id);
@@ -90,60 +106,17 @@ class CommunityController extends Controller
         return view('community.show', compact('community', 'isJoin'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Community  $community
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Community $community)
     {
         // areaテーブルの全データを取得する
         $areas = MArea::all();
         // categoryテーブルの全データを取得する
         $categories = MCategory::all();
+
         return view('community.edit', compact('community', 'areas', 'categories'));
     }
 
-
-    // ユーザー一覧表示
-    public function members($community_id)
-    {
-        $community = Community::find($community_id);
-        $communities = Community::with('users')->where('id', $community_id)->get();
-        // dd($communities);
-
-        //ユーザーがすでにコミュニティに入っているかの判別
-        $isJoin = CommunityUser::where('user_id', auth()->user()->id)->where('community_id', $community_id)->exists();
-
-
-        return view('community.member', compact('community','communities', 'isJoin'));
-    }
-
-    // ユーザー追加
-    public function add($community_id)
-    {
-        $community = Community::find($community_id);
-        $user_id = auth()->user()->id;
-        $community->users()->attach($user_id);
-
-        $communities = Community::with('users')->where('id', $community_id)->get();
-
-        //ユーザーがすでにコミュニティに入っているかの判別
-        $isJoin = CommunityUser::where('user_id', auth()->user()->id)->where('community_id', $community_id)->exists();
-
-        return view('community.member', compact('communities','community', 'isJoin'));
-    }
-
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Community  $community
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Community $community)
     {
         // バリデーション
@@ -174,22 +147,38 @@ class CommunityController extends Controller
         return redirect()->route('community.show', $community)->with('message', 'コミュニティを更新しました');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Community  $community
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Community $community)
     {
         $community->delete();
         return redirect()->route('community.index')->with('message', 'コミュニティを削除しました');
     }
 
-    public function dashboard()
+    // ユーザー一覧表示
+    public function members($community_id)
     {
-        $Communities = Community::orderBy('created_at', 'desc')->simplePaginate(5);
-        $user = auth()->user();
-        return view('dashboard', compact('communities', 'user'));
+        $community = Community::find($community_id);
+        $communities = Community::with('users')->where('id', $community_id)->get();
+        // dd($communities);
+
+        //ユーザーがすでにコミュニティに入っているかの判別
+        $isJoin = CommunityUser::where('user_id', auth()->user()->id)->where('community_id', $community_id)->exists();
+
+
+        return view('community.member', compact('community', 'communities', 'isJoin'));
+    }
+
+    // ユーザー追加
+    public function add($community_id)
+    {
+        $community = Community::find($community_id);
+        $user_id = auth()->user()->id;
+        $community->users()->attach($user_id);
+
+        $communities = Community::with('users')->where('id', $community_id)->get();
+
+        //ユーザーがすでにコミュニティに入っているかの判別
+        $isJoin = CommunityUser::where('user_id', auth()->user()->id)->where('community_id', $community_id)->exists();
+
+        return view('community.member', compact('communities', 'community', 'isJoin'));
     }
 }

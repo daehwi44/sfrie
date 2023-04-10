@@ -4,12 +4,12 @@ use App\Http\Controllers\BoshuCommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BoshujohoController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\EventCommunityController;
+use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 
@@ -24,15 +24,42 @@ use App\Http\Controllers\WelcomeController;
 |
 */
 
-//chatのルート
-Route::resource('/chat', ChatController::class);
+// チャット
+Route::get('/chat/{user}', [ChatController::class, 'show'])->name('chat.show');
+Route::post('/chat/{user}', [ChatController::class, 'send'])->name('chat.send');
+
+// ユーザー一覧表示(検索結果も表示)
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+// 友達一覧表示
+Route::get('/users/{user}/friends', [UserController::class, 'friends'])->name('users.friends');
+
+// 申請承認
+Route::post('/friend-request/{id}/accept', [FriendRequestController::class, 'acceptFriendRequest'])->name('friend_request.accept');
+// 申請拒否
+Route::post('/friend-request/{id}/reject', [FriendRequestController::class, 'rejectFriendRequest'])->name('friend_request.reject');
+
+// 申請一覧表示
+Route::get('/friend-requests/{user}', [FriendRequestController::class, 'showFriendRequests'])->name('friend-requests.index');
+
+// 友達申請用
+Route::post('/friend-request', [FriendRequestController::class, 'sendFriendRequest'])->name('friend_request.send');
 
 //施設情報のルート
 Route::get('shisetsu', [WelcomeController::class, 'shisetsu'])->name('shisetsu.index');
 
+
+// イベントコミュニティのindexへ
+Route::get('eventcommunity', [EventCommunityController::class, 'index'])->name('event.index');
+// イベントコミュニティのcreateへ
+Route::get('eventcommunity/create', [EventCommunityController::class, 'create'])->name('event.create');
+// イベントコミュニティのstoreへ
+Route::post('ceventcommunity', [EventCommunityController::class, 'store'])->name('event.store');
+
 //学習コミュニティのルート
 Route::resource('community', CommunityController::class)->except(['show']);
 Route::get('community/{community_id?}', [CommunityController::class, 'show'])->name('community.show');
+
 
 
 //募集情報コメント保存用ルート
@@ -42,10 +69,10 @@ Route::post('boshujoho/boshucomment/store', [BoshuCommentController::class, 'sto
 Route::resource('boshujoho', BoshujohoController::class);
 
 //マイページのルート（リソースコントローラーのルートより上に書かないとエラーになる）
-Route::get('post/mypost', [PostController::class, 'mypost'])->name('post.mypost');
+// Route::get('post/mypost', [PostController::class, 'mypost'])->name('post.mypost');
 
 //マイコメントのルート（リソースコントローラーのルートより上に書かないとエラーになる）
-Route::get('post/mycomment', [PostController::class, 'mycomment'])->name('post.mycomment');
+// Route::get('post/mycomment', [PostController::class, 'mycomment'])->name('post.mycomment');
 
 //コメント保存用ルート
 Route::post('post/comment/store', [CommentController::class, 'store'])->name('comment.store');
@@ -65,31 +92,12 @@ Route::get('community/{community_id?}/members', [CommunityController::class, 'me
 //コミュニティ参加
 Route::get('community/{community_id?}/add', [CommunityController::class, 'add'])->name('community.add');
 
-// お問い合わせ
-Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');
-Route::post('contact/store', [ContactController::class, 'store'])->name('contact.store');
-
 //プロフィール編集用ルート設定を追加
 Route::get('profile/{user}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('profile/{user}', [ProfileController::class, 'update'])->name('profile.update');
 
 //プロフィール詳細表示
 Route::get('profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
-
-
-// 管理者用画面
-Route::middleware(['can:admin'])->group(function () {
-    //ユーザ一覧
-    Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
-    Route::delete('profile/{user}', [ProfileController::class, 'delete'])->name('profile.delete');
-
-    Route::patch('roles/{user}/attach', [RoleController::class, 'attach'])->name('role.attach');
-    Route::patch('roles/{user}/detach', [RoleController::class, 'detach'])->name('role.detach');
-});
-
-// ユーザー一覧ページ
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-
 
 //welcomeルーティング
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');

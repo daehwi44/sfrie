@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-comindex-navi></x-comindex-navi>
+        <x-event-comindex-navi></x-event-comindex-navi>
         <div class="bg-white">
             <h2 class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-white-800 leading-tight">
                 新規作成
@@ -14,19 +14,27 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mt-2 mx-4 sm:p-8">
-            <form method="post" action="{{ route('community.store') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('event.store') }}" enctype="multipart/form-data">
                 @csrf
                 <!-- is_event -->
-                <input type="hidden" name="is_event" value="0">
+                <input type="hidden" name="is_event" value="1">
 
-                <!-- コミュニティ名 -->
+                <!-- イベント名 -->
                 <div class="md:flex items-center">
                     <div class="w-full flex flex-col">
-                        <label for="body" class="font-semibold leading-none">コミュニティ名</label>
+                        <label for="body" class="font-semibold leading-none">イベント名</label>
                         <input type="text" name="name"
                             class="w-auto py-2 placeholder-gray-300 border border-gray-300 rounded-md" id="name"
-                            value="{{ old('name') }}" placeholder="コミュニティ名を入力してください">
+                            value="{{ old('name') }}" placeholder="イベント名を入力してください">
                     </div>
+                </div>
+
+                <!-- イベント開催日 -->
+                <div class="mt-4">
+                    <x-label for="event_date" :value="__('イベント開催日')" />
+                    <input type="date" name="event_date"
+                        class="w-auto py-2 placeholder-gray-300 border border-gray-300 rounded-md" id="event_date"
+                        value="{{ old('event_date') }}" placeholder="Enter Event Date">
                 </div>
 
                 <!-- イメージ画像 -->
@@ -77,7 +85,7 @@
                 </div>
 
                 <x-button class="mt-4">
-                    学習コミュニティを作成する
+                    イベントコミュニティを作成する
                 </x-button>
 
             </form>

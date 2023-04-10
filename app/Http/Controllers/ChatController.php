@@ -2,43 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewMessage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Models\Chat;
+use App\Models\User;
+use App\Models\Message;
+use Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class ChatController extends Controller
 {
-    public function index(Request $request)
+    // チャットルームを開く
+    public function show(User $user)
     {
-
-        // ユーザー識別子がなければランダムに生成してセッションに登録
-        if ($request->session()->missing('user_identifier')) {
-            session(['user_identifier' => Str::random(20)]);
-        }
-
-        // ユーザー名を変数に登録（デフォルト値：Guest）
-        if ($request->session()->missing('user_name')) {
-            session(['user_name' => 'Guest']);
-        }
-
-        // チャット取得
-        $chats = Chat::all();
-
-        // チャットデータをビューに渡して表示
-        return view('chat/index', compact('chats'));
+        $messages = Message::where(function ($query) use ($user) {
+            $query->where('from_user_id', auth()->id())
+                ->where('to_user_id', $user->id);
+        })
+            ->orWhere(function ($query) use ($user) {
+                $query->where('from_user_id', $user->id)
+                    ->where('to_user_id', auth()->id());
+            })
+            ->orderBy('created_at', 'ASC')
+            ->get();
+        return view('chat.show', compact('user', 'messages'));
     }
 
-    public function store(Request $request)
+    // メッセージの送信処理
+    public function send(Request $request, User $user)
     {
-        // フォームに入力されたユーザー名をセッションに登録
-        session(['user_name' => $request->user_name]);
+        $message = new Message;
+        $message->from_user_id = auth()->id();
+        $message->to_user_id = $user->id;
+        $message->message = $request->message;
+        $message->save();
 
-        // フォームに入力されたチャットデータをデータベースに登録
-        $chat = new Chat;
-        $form = $request->all();
-        $chat->fill($form)->save();
+        event(new NewMessage($message));
 
-        // 最初の画面にリダイレクト
-        return redirect('/chat');
+        $messages = Message::where(function ($query) use ($user) {
+            $query->where('from_user_id', auth()->id())->where('to_user_id', $user->id);
+        })->orWhere(function ($query) use ($user) {
+            $query->where('from_user_id', $user->id)->where('to_user_id', auth()->id());
+        })->get();
+
+        return view('chat.show', compact('user', 'messages'));
     }
 }

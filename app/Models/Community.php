@@ -16,6 +16,8 @@ class Community extends Model
         'image',
         'content',
         'about',
+        'is_event',
+        'event_date',
     ];
 
     //Userとのリレーション
@@ -47,5 +49,4 @@ class Community extends Model
     {
         return $this->belongsToMany(User::class);
     }
-
 }

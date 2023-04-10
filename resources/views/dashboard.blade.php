@@ -11,8 +11,8 @@
     {{-- メインビジュアル --}}
     <img src="{{ asset('images/main.png') }}" class="w-full">
 
-    <div class="md:flex justify-center ">
-        {{-- 左側のカラム --}}
+    <div class="md:flex justify-center my-20 ">
+        {{-- 左側のカラム
         <div class="w-full  md:w-1/5 p-1">
             <div
                 class="w-full bg-white rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500 h-full">
@@ -20,15 +20,15 @@
 
             </div>
 
-        </div>
+        </div> --}}
 
         {{-- 右側のカラム --}}
-        <div class="w-full md:w-4/5 p-1">
+        <div class="w-full md:w-3/5 p-1">
 
             {{-- 募集情報コンテナ --}}
             <div class="w-full bg-white rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
 
-                <div class="mt-4">
+                <div class="my-4">
                     <div class="flex pb-1 font-extrabold text-2xl">
                         ◆学習仲間募集情報
                     </div>
@@ -56,7 +56,7 @@
                             </div>
                             <hr class="w-full">
                             {{-- 本文(長い場合"..."表示) --}}
-                            <p class="whitespace-pre-wrap mt-4 text-gray-600 py-4">
+                            <p class="mt-4 text-gray-600 py-4">
                                 {{ Str::limit($boshujoho->body, 500, '...') }}</p>
                             <div class="text-sm font-semibold flex flex-row-reverse">
                                 <p>{{ $boshujoho->created_at->diffForHumans() }}</p>
@@ -78,7 +78,7 @@
             {{-- 学習コミュニティ一覧コンテナ --}}
             <div
                 class="w-full bg-white mt-10 mx-auto rounded-2xl px-4 sm:px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
-                <div class="w-full mt-4">
+                <div class="w-full my-4">
                     <div class="flex pb-1 font-extrabold text-2xl">
                         ◆学習コミュニティ一覧
                     </div>
@@ -115,9 +115,96 @@
                     </div>
                 </div>
             </div>
+
+
+            {{-- イベントコミュニティ一覧コンテナ --}}
+            <div
+                class="w-full bg-white mt-10 mx-auto rounded-2xl px-4 sm:px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+                <div class="w-full my-4">
+                    <div class="flex pb-1 font-extrabold text-2xl">
+                        ◆イベントコミュニティ一覧
+                    </div>
+
+
+
+                    {{-- 日付ごとにコミュニティリストを表示 --}}
+                    <table class="w-full border-collapse border">
+                        <thead class="bg-blue-100">
+                            <tr>
+                                <th class="w-2/10 px-4 py-2 border">{{ __('日付') }}</th>
+                                <th class="w-3/10 px-4 py-2 border">{{ __('イベント名') }}</th>
+                                <th class="w-1/10 px-4 py-2 border">{{ __('開催エリア') }}</th>
+                                <th class="w-1/10 px-4 py-2 border">{{ __('カテゴリー') }}</th>
+                                <th class="w-3/10 px-4 py-2 border">{{ __('学習内容') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($eventcommunities->groupBy('event_date') as $date => $communitiesOnDate)
+                                <tr>
+                                    <td class="w-2/12 px-4 py-4 border text-center"
+                                        rowspan="{{ count($communitiesOnDate) }}">
+                                        {{ \Carbon\Carbon::parse($date)->format('Y/m/d') }}
+                                        {{ \Carbon\Carbon::parse($date)->formatLocalized('(%a)') }}
+                                    </td>
+                                    @foreach ($communitiesOnDate as $key => $community)
+                                        @if ($key > 0)
+                                <tr>
+                            @endif
+                            <td class="w-2/10 px-4 py-4 border">
+                                <ul class="flex">
+                                    <li class="flex items-center">
+                                        {{-- イベント画像 --}}
+                                        <img class="object-cover w-10 h-full rounded-full ring-1 ring-gray-100"
+                                            src="{{ asset('storage/images/' . ($community->image ?? 'user_default.jpg')) }}">
+                                    </li>
+                                    <li class="ml-2 flex items-center">
+                                        <a href="{{ route('post.index', ['community_id' => $community->id]) }}"
+                                            class="flex-grow flex items-center font-semibold hover:underline">
+                                            {{ $community->name }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td class="w-1/10 px-4 py-4 border text-center">{{ $community->area->area }}
+                            </td>
+                            <td class="w-3/10 px-4 py-4 border text-center">
+                                {{ $community->category->category }}</td>
+                            <td class="w-3/12 px-4 py-4 border">{{ $community->content }}</td>
+                            @if ($key > 0)
+                                </tr>
+                            @endif
+                            @endforeach
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="flex justify-center">
+                    <div>
+                        <a href="{{ route('event.index') }}">
+                            もっとみる
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-
     </div>
+
+    <footer class="bg-black text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row justify-between items-center">
+            <div class="text-center lg:text-left mb-2 lg:mb-0">
+                <p class="text-gray-400 text-sm">&copy; 2023 Sfrie Inc.</p>
+            </div>
+            <div class="text-center mb-2 lg:mb-0">
+                <a href="#" class="text-gray-400 text-sm hover:text-white transition duration-300">利用規約</a>
+                <span class="mx-2 text-gray-400 text-sm">|</span>
+                <a href="#" class="text-gray-400 text-sm hover:text-white transition duration-300">プライバシーポリシー</a>
+            </div>
+            <div class="text-center lg:text-right">
+                <p class="text-gray-400 text-sm">お問い合わせはこちら<br>contact@sfrie.com</p>
+            </div>
+        </div>
+    </footer>
 
 </x-app-layout>
