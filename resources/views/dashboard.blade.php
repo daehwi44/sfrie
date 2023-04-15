@@ -11,7 +11,7 @@
     {{-- メインビジュアル --}}
     <img src="{{ asset('images/main.png') }}" class="w-full">
 
-    <div class="md:flex justify-center my-20 ">
+    <div class="md:flex justify-center my-5 ">
         {{-- 左側のカラム
         <div class="w-full  md:w-1/5 p-1">
             <div
@@ -26,7 +26,7 @@
         <div class="w-full md:w-3/5 p-1">
 
             {{-- 募集情報コンテナ --}}
-            <div class="w-full bg-white rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+            <div class="w-full bg-white rounded px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
 
                 <div class="my-4">
                     <div class="flex pb-1 font-extrabold text-2xl">
@@ -55,14 +55,41 @@
                                 <a href="{{ route('boshujoho.show', $boshujoho) }}">{{ $boshujoho->title }}</a>
                             </div>
                             <hr class="w-full">
-                            {{-- 本文(長い場合"..."表示) --}}
-                            <p class="mt-4 text-gray-600 py-4">
-                                {{ Str::limit($boshujoho->body, 500, '...') }}</p>
-                            <div class="text-sm font-semibold flex flex-row-reverse">
-                                <p>{{ $boshujoho->created_at->diffForHumans() }}</p>
+                            {{-- エリア・カテゴリー・学習内容 --}}
+                            <div class="text-gray-700 pt-3 pb-3">
+                                <div class="flex space-x-4 text-gray-700">
+                                    <div class="py-1">
+                                        <p class="font-semibold">エリア:</p>
+                                    </div>
+                                    <div class="bg-blue-100 border border-blue-500 rounded-2xl px-2 py-1 mx-1">
+                                        <p class="font-semibold text-blue-800">{{ $boshujoho->area->area }}</p>
+                                    </div>
+                                    <div class="py-1">
+                                        <p class="font-semibold">学習カテゴリー:</p>
+                                    </div>
+                                    <div class="bg-green-100 border border-green-500 rounded-2xl px-2 py-1 mx-1">
+                                        <p class="font-semibold text-green-800">{{ $boshujoho->category->category }}
+                                        </p>
+                                    </div>
+                                    <div class="py-1">
+                                        <p class="font-semibold">学習内容:</p>
+                                    </div>
+                                    <div class="border rounded-2xl px-2 py-1 mx-1">
+                                        <p class="font-semibold">{{ $boshujoho->content }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            {{-- 投稿間の区切り線（太めの線） --}}
-                            <hr class="w-full bg-gray-600 h-0.5">
+                            <div>
+                                <hr class="w-full">
+                                {{-- 本文(長い場合"..."表示) --}}
+                                <p class="mt-4 text-gray-600 py-4">
+                                    {{ Str::limit($boshujoho->body, 500, '...') }}</p>
+                                <div class="text-sm font-semibold flex flex-row-reverse">
+                                    <p>{{ $boshujoho->created_at->diffForHumans() }}</p>
+                                </div>
+                                {{-- 投稿間の区切り線（太めの線） --}}
+                                <hr class="w-full bg-gray-600 h-0.5">
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -77,7 +104,7 @@
 
             {{-- 学習コミュニティ一覧コンテナ --}}
             <div
-                class="w-full bg-white mt-10 mx-auto rounded-2xl px-4 sm:px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+                class="w-full bg-white mt-10 mx-auto rounded px-4 sm:px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
                 <div class="w-full my-4">
                     <div class="flex pb-1 font-extrabold text-2xl">
                         ◆学習コミュニティ一覧
@@ -119,7 +146,7 @@
 
             {{-- イベントコミュニティ一覧コンテナ --}}
             <div
-                class="w-full bg-white mt-10 mx-auto rounded-2xl px-4 sm:px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+                class="w-full bg-white mt-10 mx-auto px-4 sm:px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
                 <div class="w-full my-4">
                     <div class="flex pb-1 font-extrabold text-2xl">
                         ◆イベントコミュニティ一覧

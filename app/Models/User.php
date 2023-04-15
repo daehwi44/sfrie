@@ -118,4 +118,53 @@ class User extends Authenticatable
             ->exists();
         return $is_friend;
     }
+
+
+    // おすすめユーザーを取得
+    public function calculateSimilarity(User $user)
+    {
+        $score = 0;
+
+        // 1. 居住エリアが同じ場合：10点
+        if ($this->m_area_id == $user->m_area_id) {
+            $score += 10;
+        }
+
+        // 2. 興味のある学習カテゴリーが同じ場合：8点
+        if ($this->m_category_id == $user->m_category_id) {
+            $score += 8;
+        }
+
+        // 3. 学習内容が同じ場合：10点
+        $this_contents = $this->contents()->pluck('content')->toArray();
+        $user_contents = $user->contents()->pluck('content')->toArray();
+        if (count(array_intersect($this_contents, $user_contents)) > 0) {
+            $score += 10;
+        }
+
+
+        // 4. 年齢が近い場合（10歳以内）：3点
+        $age_diff = abs(\Carbon\Carbon::parse($this->birth)->diffInYears(\Carbon\Carbon::parse($user->birth)));
+        if ($age_diff <= 10) {
+            $score += 3;
+            // 年齢が近い場合（5歳以内）：5点(さらに２点)
+            if ($age_diff <= 5) {
+                $score += 2;
+                // 年齢が近い場合（10歳以内）：7点(さらに２点)
+                if ($age_diff <= 3) {
+                    $score += 2;
+                }
+            }
+        }
+
+        // 5. 性別が同じ場合：3点
+        if ($this->gender == $user->gender) {
+            $score += 3;
+        }
+
+        // おすすめ度を計算する
+        $similarity = round(($score / 38) * 100); // 合計点数は38点満点とする
+
+        return $similarity;
+    }
 }

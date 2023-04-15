@@ -4,7 +4,7 @@
         <!-- Navigation Links -->
         <x-nav-link :href="route('event.index')" :active="request()->routeIs('event.index')">
             <div class="text-white">
-                イベントコミュニティ一覧
+                学習イベントコミュニティ一覧
             </div>
         </x-nav-link>
         <x-nav-link class="ml-20" :href="route('event.create')" :active="request()->routeIs('event.create')">

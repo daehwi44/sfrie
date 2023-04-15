@@ -116,7 +116,7 @@
                     </div>
                     <div class="flex justify-end items-center mt-4">
                         <button type="submit"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mx-auto">
+                            class="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md mx-auto">
                             {{ __('検索') }}
                         </button>
                     </div>

@@ -11,6 +11,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\EventCommunityController;
 use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RecommendedUserController;
 use App\Http\Controllers\WelcomeController;
 
 /*
@@ -23,6 +24,9 @@ use App\Http\Controllers\WelcomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// おすすめユーザー
+Route::get('/recommended-user', [RecommendedUserController::class, 'index'])->name('recommended.index');
 
 // チャット
 Route::get('/chat/{user}', [ChatController::class, 'show'])->name('chat.show');

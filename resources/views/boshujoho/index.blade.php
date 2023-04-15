@@ -10,9 +10,14 @@
     </x-slot>
 
     {{-- 検索部分 --}}
-    <div class="py-12">
+    <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex flex-wrap justify-between items-center">
+            <div class="flex">
+                <div class="w-1/5"></div>
+                <i class="fas fa-search mr-2 my-auto"></i>
+                <p class="font-semibold">search</p>
+            </div>
+            <div class="flex flex-wrap justify-between items-center mt-4">
                 {{-- boshujohoコントローラー/indexへGET --}}
                 <form method="GET" action="{{ route('boshujoho.index') }}" class="w-full md:w-2/3 lg:w-3/5 mx-auto">
                     <div class="flex flex-wrap justify-between items-center">
@@ -60,7 +65,7 @@
                     </div>
                     <div class="flex justify-end items-center mt-4">
                         <button type="submit"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mx-auto">
+                            class="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md mx-auto">
                             {{ __('検索') }}
                         </button>
                     </div>
@@ -69,14 +74,12 @@
         </div>
 
     </div>
-
     {{-- 投稿一覧表示用のコード --}}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         @foreach ($boshujohos as $boshujoho)
             <div class="mx-4 sm:p-2">
                 <div class="mt-4">
-                    <div
-                        class="bg-white w-full  rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+                    <div class="bg-white w-full px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
                         <div class="mt-4">
                             <div class="flex pb-1">
                                 {{-- アバター --}}
@@ -100,29 +103,48 @@
                             <hr class="w-full">
                             {{-- エリア・カテゴリー・学習内容 --}}
                             <div class="text-gray-700 pt-3 pb-3">
-                                <p>エリア：{{ $boshujoho->area->area }} / カテゴリー：{{ $boshujoho->category->category }} /
-                                    学習内容：{{ $boshujoho->content }}</p>
+                                <div class="flex space-x-4 text-gray-700">
+                                    <div class="py-1">
+                                        <p class="font-semibold">エリア:</p>
+                                    </div>
+                                    <div class="bg-blue-100 border border-blue-500 rounded-2xl px-2 py-1 mx-1">
+                                        <p class="font-semibold text-blue-800">{{ $boshujoho->area->area }}</p>
+                                    </div>
+                                    <div class="py-1">
+                                        <p class="font-semibold">学習カテゴリー:</p>
+                                    </div>
+                                    <div class="bg-green-100 border border-green-500 rounded-2xl px-2 py-1 mx-1">
+                                        <p class="font-semibold text-green-800">{{ $boshujoho->category->category }}
+                                        </p>
+                                    </div>
+                                    <div class="py-1">
+                                        <p class="font-semibold">学習内容:</p>
+                                    </div>
+                                    <div class="border rounded-2xl px-2 py-1 mx-1">
+                                        <p class="font-semibold">{{ $boshujoho->content }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <hr class="w-full">
-                            {{-- 本文(長い場合"..."表示) --}}
-                            <p class="mt-4 text-gray-600 py-4">
-                                {{ Str::limit($boshujoho->body, 500, '...') }} </p>
-                            <div class="text-sm font-semibold flex flex-row-reverse">
-                                <p>{{ $boshujoho->created_at->diffForHumans() }}</p>
-                            </div>
-                            <hr class="w-full mb-2">
-                            {{-- ここにコメント表示用 --}}
-                            @if ($boshujoho->boshucomments->count())
-                                <span class="badge">
-                                    返信 {{ $boshujoho->boshucomments->count() }}件
-                                </span>
-                            @else
-                                <span>コメントはまだありません。</span>
-                            @endif
-                            <a href="{{ route('boshujoho.show', $boshujoho) }}" style="color:white;">
-                                <x-button class="float-right">コメントする</x-button>
-                            </a>
                         </div>
+                        <hr class="w-full">
+                        {{-- 本文(長い場合"..."表示) --}}
+                        <p class="mt-4 text-gray-600 py-4">
+                            {{ Str::limit($boshujoho->body, 500, '...') }} </p>
+                        <div class="text-sm font-semibold flex flex-row-reverse">
+                            <p>{{ $boshujoho->created_at->diffForHumans() }}</p>
+                        </div>
+                        <hr class="w-full mb-2">
+                        {{-- ここにコメント表示用 --}}
+                        @if ($boshujoho->boshucomments->count())
+                            <span class="badge">
+                                返信 {{ $boshujoho->boshucomments->count() }}件
+                            </span>
+                        @else
+                            <span>コメントはまだありません。</span>
+                        @endif
+                        <a href="{{ route('boshujoho.show', $boshujoho) }}" style="color:white;">
+                            <x-button class="float-right">コメントする</x-button>
+                        </a>
                     </div>
                 </div>
             </div>

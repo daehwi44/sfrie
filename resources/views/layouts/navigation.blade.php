@@ -37,6 +37,11 @@
                             ユーザー一覧
                         </div>
                     </x-nav-link>
+                    <x-nav-link :href="route('recommended.index')" :active="request()->routeIs('recommended.index')">
+                        <div class="text-white">
+                            おすすめユーザー
+                        </div>
+                    </x-nav-link>
                     {{-- <x-nav-link :href="route('shisetsu.index')" :active="request()->routeIs('shisetsu.index')">
                         <div class="text-white">
                             学習施設情報

@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h2 class="font-extrabold text-3xl bg-gray-800 leading-tight py-6 text-center tracking-wide">
             <span class="text-3xl text-white">
-                {{ __('イベントコミュニティ') }}
+                {{ __('学習イベントコミュニティ') }}
             </span>
         </h2>
         <x-event-comindex-navi></x-event-comindex-navi>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="flex justify-end items-center mt-4">
                         <button type="submit"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mx-auto">
+                            class="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md mx-auto">
                             {{ __('検索') }}
                         </button>
                     </div>
@@ -79,7 +79,7 @@
     </div>
 
 
-    {{-- イベントコミュニティ一覧表示用のコード --}}
+    {{-- 学習イベントコミュニティ一覧表示用のコード --}}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mx-4 sm:p-2">
             <div class="mt-4">
@@ -90,10 +90,10 @@
                         <div class="container px-6 py-10 mx-auto">
                             <h1
                                 class="text-3xl font-semibold text-center text-gray-800 capitalize lg:text-4xl dark:text-white">
-                                イベントコミュニティ一覧</h1>
+                                学習イベントコミュニティ一覧</h1>
 
                             <p class="max-w-2xl mx-auto my-6 text-center text-gray-500 dark:text-gray-300">
-                                あなたの興味があるイベントのコミュニティを見つけましょう。
+                                あなたの興味がある学習イベントのコミュニティを見つけましょう。
                             </p>
 
                             {{-- 日付ごとにコミュニティリストを表示 --}}

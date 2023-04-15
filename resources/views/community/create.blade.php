@@ -39,7 +39,8 @@
 
                 <!-- area -->
                 <div class="mt-4">
-                    <x-label for="m_area_id" :value="__('都道府県')" />
+                    <x-label for="m_area_id" class="font-semibold text-base leading-none" style="color: #000000;"
+                        :value="__('都道府県')" />
                     <select name="m_area_id" required>
                         @foreach ($areas as $area)
                             <option value="{{ $area->id }}" @if (isset($user->m_area_id) && $user->m_area_id === $area->id) selected @endif>
@@ -50,7 +51,8 @@
 
                 <!-- category -->
                 <div class="mt-4">
-                    <x-label for="m_category_id" :value="__('カテゴリー')" />
+                    <x-label for="m_category_id" class="font-semibold text-base leading-none" style="color: #000000;"
+                        :value="__('カテゴリー')" />
                     <select name="m_category_id" required>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}" @if (isset($user->m_category_id) && $user->m_category_id === $category->id) selected @endif>
@@ -62,7 +64,7 @@
                 <!-- 学習内容 -->
                 <div class="md:flex items-center mt-8">
                     <div class="w-full flex flex-col">
-                        <label for="body" class="font-semibold leading-none mt-4">学習内容</label>
+                        <label for="body" class="font-semibold leading-none">学習内容</label>
                         <input type="text" name="content"
                             class="w-auto py-2 placeholder-gray-300 border border-gray-300 rounded-md" id="content"
                             value="{{ old('content') }}" placeholder="学習内容を入力してください">

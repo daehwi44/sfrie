@@ -17,7 +17,7 @@
                 <div class="mx-1 sm:p-2">
                     <div class="mt-4">
                         <div
-                            class="bg-white w-full  rounded-2xl px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
+                            class="bg-white w-full  rounded px-10 pt-2 pb-8 shadow-lg hover:shadow-2xl transition duration-500">
                             <div class="mt-4">
                                 <div class="flex pb-1">
                                     {{-- アバター --}}
@@ -40,7 +40,7 @@
                                 </div>
                                 <hr class="w-full">
                                 {{-- 本文(長い場合"..."表示) --}}
-                                <p class="whitespace-pre-wrap mt-4 text-gray-600 py-4">
+                                <p class="mt-4 text-gray-600 py-4">
                                     {{ Str::limit($post->body, 500, '...') }} </p>
                                 <div class="text-sm font-semibold flex flex-row-reverse">
                                     <p>{{ $post->created_at->diffForHumans() }}</p>
